@@ -6,7 +6,6 @@ public class Plateform : MonoBehaviour
 {
     private new Renderer renderer;
     private bool isOutFading;
-    private bool isAnimated;
     private const float OUT_FADING_TIME = 1;
     private float outFadingCurrentTime;
     
@@ -16,7 +15,6 @@ public class Plateform : MonoBehaviour
     private void Start()
     {
         isOutFading = false;
-        isAnimated = false;
         renderer = GetComponent<Renderer>();
     }
 
@@ -29,6 +27,7 @@ public class Plateform : MonoBehaviour
     {
         if (other.tag == "BlocHighlighter")
         {
+            isOutFading = false;
             Color color = renderer.material.color;
             renderer.material.color = new Color(color.r, color.g, color.b, 1);
         }
@@ -44,7 +43,6 @@ public class Plateform : MonoBehaviour
         if (other.tag == "BlocHighlighter")
         {
             isOutFading = true;
-            isAnimated = true;
             outFadingCurrentTime = 0;
         }
     }
@@ -56,27 +54,19 @@ public class Plateform : MonoBehaviour
     {
         Color color = renderer.material.color;
 
-        if(isAnimated)
+        if(isOutFading)
         {
             outFadingCurrentTime += Time.deltaTime;
 
             float outFadingCurrentPercent = outFadingCurrentTime / OUT_FADING_TIME;
 
-            if (isOutFading)
-            {
-                float alpha = Mathf.Lerp(1, 0, outFadingCurrentPercent);
-                renderer.material.color = new Color(color.r, color.g, color.b, alpha);
-            }
+            float alpha = Mathf.Lerp(1, 0, outFadingCurrentPercent);
+            renderer.material.color = new Color(color.r, color.g, color.b, alpha);
 
             if(outFadingCurrentPercent > 1)
             {
-                isAnimated = false;
                 isOutFading = false;
             }
-        }
-        else
-        {
-            renderer.material.color = new Color(color.r, color.g, color.b, 0);
         }
     }
 }
