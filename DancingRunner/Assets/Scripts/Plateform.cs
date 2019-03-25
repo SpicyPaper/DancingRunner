@@ -4,30 +4,41 @@ using UnityEngine;
 
 public class Plateform : MonoBehaviour
 {
-    private Renderer renderer;
+    private new Renderer renderer;
     private bool isOutFading;
     private bool isAnimated;
-    private const float OUT_FADING_TIME = 2;
+    private const float OUT_FADING_TIME = 1;
     private float outFadingCurrentTime;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    /// <summary>
+    /// Init variables
+    /// </summary>
+    private void Start()
     {
         isOutFading = false;
         isAnimated = false;
         renderer = GetComponent<Renderer>();
     }
 
+    /// <summary>
+    /// Check if the bloc highlither is triggered
+    /// Highlight the triggered plateform
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "BlocHighlighter")
         {
-            isOutFading = false;
             Color color = renderer.material.color;
             renderer.material.color = new Color(color.r, color.g, color.b, 1);
         }
     }
 
+    /// <summary>
+    /// Check if the bloc highlither is triggered
+    /// Enable out fading
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "BlocHighlighter")
@@ -37,9 +48,11 @@ public class Plateform : MonoBehaviour
             outFadingCurrentTime = 0;
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    /// <summary>
+    /// Manage the alpha channel of the plateform mat.
+    /// </summary>
+    private void Update()
     {
         Color color = renderer.material.color;
 
@@ -52,13 +65,13 @@ public class Plateform : MonoBehaviour
             if (isOutFading)
             {
                 float alpha = Mathf.Lerp(1, 0, outFadingCurrentPercent);
-                Debug.Log(alpha);
                 renderer.material.color = new Color(color.r, color.g, color.b, alpha);
             }
 
             if(outFadingCurrentPercent > 1)
             {
                 isAnimated = false;
+                isOutFading = false;
             }
         }
         else
