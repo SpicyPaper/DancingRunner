@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float GroundDistance = 0.2f;
     public float WallJumpForce = 600;
     public LayerMask Ground;
-    public Transform PlayerCenter;
 
     private Rigidbody body;
     private Vector3 inputs = Vector3.zero;
@@ -17,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private bool isOnWall = false;
     private Vector3 movement;
     private Vector3 sumNormals;
+    private Animator playerAnimator;
 
     [SerializeField]
     private Transform groundChecker;
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody>();
+        playerAnimator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -39,7 +40,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             if (isGrounded)
+            {
                 body.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+                playerAnimator.SetBool("IsJumping", true);
+            }
             if (isOnWall)
             {
                 body.AddForce(Vector3.Normalize(Vector3.up + Vector3.Normalize(sumNormals)) * WallJumpForce, ForceMode.Impulse);
@@ -56,6 +60,8 @@ public class PlayerController : MonoBehaviour
             body.velocity = new Vector3(0, body.velocity.y, 0);
 
         movement = inputs * Speed * Time.fixedDeltaTime;
+        
+        playerAnimator.SetBool("IsRunning", movement != Vector3.zero);
 
         body.MovePosition(body.position + movement);
     }
@@ -74,5 +80,11 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         isOnWall = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isGrounded)
+            playerAnimator.SetBool("IsJumping", false);
     }
 }
