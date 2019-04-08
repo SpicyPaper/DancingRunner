@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     private float highlighterElapsedTime;
     private float highlighterInterval;
     private int currentStageId;
+    private GameObject highlightersParent;
 
     // Start is called before the first frame update
     private void Start()
@@ -19,7 +20,9 @@ public class LevelManager : MonoBehaviour
         plateformsPerStage = new List<List<GameObject>>();
         highlighters = new List<GameObject>();
         level = GetComponent<Transform>().gameObject;
+        highlighterInterval = 1;
         currentStageId = 0;
+        highlightersParent = new GameObject("Highlighters");
 
         CreateLevelStructure();
 
@@ -43,14 +46,14 @@ public class LevelManager : MonoBehaviour
         {
             highlighterElapsedTime = 0;
 
-            GameObject currentStageStart = plateformsPerStage[currentStageId][0];
+            Vector3 currentStageStart = plateformsPerStage[currentStageId][0].transform.position;
 
             GameObject highlighter = Instantiate(PlateformHighlighterModel);
-
+            highlighter.transform.parent = highlightersParent.transform;
+            highlighter.transform.position = currentStageStart;
 
             highlighters.Add(highlighter);
         }
-
     }
 
     /// <summary>
