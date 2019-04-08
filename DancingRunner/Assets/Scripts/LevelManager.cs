@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public GameObject PlateformHighlighterModel;
+
     private List<List<GameObject>> plateformsPerStage;
+    private List<GameObject> highlighters;
     private GameObject level;
-    private GameObject plateformHighlighter;
+    private float highlighterElapsedTime;
+    private float highlighterInterval;
+    private int currentStageId;
 
     // Start is called before the first frame update
     private void Start()
     {
         plateformsPerStage = new List<List<GameObject>>();
+        highlighters = new List<GameObject>();
         level = GetComponent<Transform>().gameObject;
-        plateformHighlighter = null;
+        currentStageId = 0;
 
         CreateLevelStructure();
 
@@ -23,7 +29,28 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+        HighlighterGenerator();
+    }
+
+    /// <summary>
+    /// Generate a new highlighter when it's needed
+    /// </summary>
+    private void HighlighterGenerator()
+    {
+        highlighterElapsedTime += Time.deltaTime;
+
+        if (highlighterElapsedTime > highlighterInterval)
+        {
+            highlighterElapsedTime = 0;
+
+            GameObject currentStageStart = plateformsPerStage[currentStageId][0];
+
+            GameObject highlighter = Instantiate(PlateformHighlighterModel);
+
+
+            highlighters.Add(highlighter);
+        }
+
     }
 
     /// <summary>
@@ -36,11 +63,7 @@ public class LevelManager : MonoBehaviour
 
         foreach (Transform levelChild in level.transform)
         {
-            if (levelChild.tag == "PlateformHighlighter")
-            {
-                plateformHighlighter = levelChild.gameObject;
-            }
-            else
+            if (levelChild.tag == "Stage")
             {
                 foreach (Transform stageChild in levelChild)
                 {
@@ -72,15 +95,10 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        if (plateformHighlighter == null || plateformsPerStage.Count <= 0)
+        if (plateformsPerStage.Count <= 0)
         {
-            Debug.Log("Error during level creation! All level should have a highlighter plateform and a number of stage > 0.");
+            Debug.Log("Error during level creation! All level should have a number of stage > 0.");
         }
-    }
-
-    private void MovePlateformHighlighter()
-    {
-
     }
 
     /// <summary>
@@ -89,9 +107,8 @@ public class LevelManager : MonoBehaviour
     private void PrintAllLevelPlateforms()
     {
         string result = "";
-        result += plateformHighlighter.name + "\n";
-
         int counter = 0;
+
         foreach (List<GameObject> item in plateformsPerStage)
         {
             counter++;
