@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - BlocHighlighter
+  - TileHighlighter
+  - Start
+  - Plateform
+  - PlateformHighlighter
+  - Stage
   layers:
   - Default
   - TransparentFX

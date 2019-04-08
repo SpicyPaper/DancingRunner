@@ -25,7 +25,7 @@ public class Plateform : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "BlocHighlighter")
+        if (other.tag == "PlateformHighlighter")
         {
             isOutFading = false;
             Color color = renderer.material.color;
@@ -40,7 +40,7 @@ public class Plateform : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "BlocHighlighter")
+        if (other.tag == "PlateformHighlighter")
         {
             isOutFading = true;
             outFadingCurrentTime = 0;
