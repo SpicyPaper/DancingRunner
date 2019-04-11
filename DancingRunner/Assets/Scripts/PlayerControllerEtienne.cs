@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerEtienne : MonoBehaviour
 {
     public float speed;
 

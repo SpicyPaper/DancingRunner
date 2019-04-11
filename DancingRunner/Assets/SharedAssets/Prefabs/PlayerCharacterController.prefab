@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 3637601446775341307}
   - component: {fileID: 3637601446775341311}
   - component: {fileID: 3637601446775341310}
+  - component: {fileID: 3561061929799101997}
   m_Layer: 2
   m_Name: PlayerCharacterController
   m_TagString: Untagged
@@ -105,6 +106,18 @@ MonoBehaviour:
   Drag: {x: 0, y: 0, z: 0}
   GroundChecker: {fileID: 3637601447471835763}
   PlayerFront: {fileID: 1233691222}
+--- !u!114 &3561061929799101997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637601446775341297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7680a149b421b4449f3251795c50af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3637601447129179840
 GameObject:
   m_ObjectHideFlags: 0
