@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour
                         stagePlateforms.Add(stageChild.gameObject);
                     }
                 }
-
+                
                 if (startPlateform != null && stagePlateforms.Count > 0)
                 {
                     List<GameObject> tmpStagePlateforms = new List<GameObject>();
