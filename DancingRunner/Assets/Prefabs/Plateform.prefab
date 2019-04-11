@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3174267492475806615}
   - component: {fileID: 3174267492475806611}
   - component: {fileID: 131896770}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plateform
   m_TagString: Plateform
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3174267492475806614}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f458b1befecda4994b6a3eb3502ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlateformColor: {r: 0, g: 0, b: 0, a: 0}
+  PlateformColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!54 &131896770
 Rigidbody:
   m_ObjectHideFlags: 0
