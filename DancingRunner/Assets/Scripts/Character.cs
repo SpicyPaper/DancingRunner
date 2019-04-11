@@ -68,12 +68,12 @@ public class Character : MonoBehaviour
 
     private void WallJump()
     {
-        playerAnimator.SetBool("IsWallJumping", true);
         velocity = wallNormal * Mathf.Sqrt(JumpHeight * -2f * Gravity);
         velocity.y = Mathf.Sqrt(JumpHeight * -2f * Gravity);
         StartCoroutine(RotatePlayer(transform.rotation, 1.2f));
-        playerAnimator.SetBool("IsWallJumping", false);
     }
+
+
 
     IEnumerator RotatePlayer(Quaternion startRotation, float duration)
     {
@@ -85,10 +85,10 @@ public class Character : MonoBehaviour
         float startTime = Time.time; // Time.time contains current frame time, so remember starting point
         while (Time.time - startTime <= duration)
         { // until one second passed
-            Debug.Log(transform.rotation);
             transform.rotation = Quaternion.Lerp(transform.rotation, endRotation, Time.time - startTime);
             yield return 1; // wait for next frame
         }
+        
     }
 
     private bool IsOnWall()
@@ -106,9 +106,8 @@ public class Character : MonoBehaviour
         }
         else
             wallNormal = Vector3.zero;
-
+        
         playerAnimator.SetBool("IsOnWall", false);
-
         return false;
     }
     
