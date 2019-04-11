@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public GameObject PlateformHighlighterModel;
+    public GameObject PlayerModel;
+
+    public List<GameObject> Players { get; private set; }
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
@@ -17,6 +21,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        Players = new List<GameObject>();
         plateformsPerStage = new List<List<GameObject>>();
         highlighters = new List<GameObject>();
         level = GetComponent<Transform>().gameObject;
@@ -25,6 +30,7 @@ public class LevelManager : MonoBehaviour
         highlightersParent = new GameObject("Highlighters");
 
         CreateLevelStructure();
+        CreatePlayers(2);
 
         //PrintAllLevelPlateforms();
     }
@@ -33,6 +39,22 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         HighlighterGenerator();
+    }
+
+    /// <summary>
+    /// Create all the players needed in the game
+    /// </summary>
+    /// <param name="numberOfPlayer"></param>
+    private void CreatePlayers(int numberOfPlayer)
+    {
+        for (int i = 0; i < numberOfPlayer; i++)
+        {
+            GameObject player = Instantiate(PlayerModel);
+            player.transform.position = plateformsPerStage[currentStageId][0].transform.position +
+                Vector3.up * player.GetComponent<CharacterController>().height * (i + 2) * 1.5f;
+
+            Players.Add(player);
+        }
     }
 
     /// <summary>
