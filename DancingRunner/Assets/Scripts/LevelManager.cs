@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     private float highlighterInterval;
     private int currentStageId;
     private GameObject highlightersParent;
+    private GameObject charactersParent;
 
     // Start is called before the first frame update
     private void Start()
@@ -29,6 +30,7 @@ public class LevelManager : MonoBehaviour
         highlighterInterval = 1;
         currentStageId = 0;
         highlightersParent = new GameObject("Highlighters");
+        charactersParent = new GameObject("Characters");
 
         CreateLevelStructure();
         CreatePlayers(1);
@@ -41,6 +43,21 @@ public class LevelManager : MonoBehaviour
     {
         HighlighterGenerator();
         UpdatePossibleColors();
+        UpdateExistingHighlighters();
+    }
+
+    /// <summary>
+    /// Remove all destroyed highlighters from the list
+    /// </summary>
+    private void UpdateExistingHighlighters()
+    {
+        for (int i = highlighters.Count - 1; i >= 0; i--)
+        {
+            if (highlighters[i] == null)
+            {
+                highlighters.RemoveAt(i);
+            }
+        }
     }
 
     /// <summary>
@@ -75,6 +92,7 @@ public class LevelManager : MonoBehaviour
         for (int i = 0; i < numberOfPlayer; i++)
         {
             GameObject player = Instantiate(PlayerModel);
+            player.transform.parent = charactersParent.transform;
             player.transform.position = plateformsPerStage[currentStageId][0].transform.position +
                 Vector3.up * player.GetComponent<CharacterController>().height * (i + 2) * 1.5f;
 
