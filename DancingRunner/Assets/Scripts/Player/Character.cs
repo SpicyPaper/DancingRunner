@@ -40,7 +40,7 @@ public class Character : MonoBehaviour
             playerAnimator.SetBool("IsJumping", false);
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         controller.Move(move * Time.deltaTime * Speed);
         
         if (move != Vector3.zero)
