@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Plateform : MonoBehaviour
 {
+    public Color PlateformColor;
+
     private new Renderer renderer;
     private bool isOutFading;
     private const float OUT_FADING_TIME = 1;
@@ -15,7 +17,11 @@ public class Plateform : MonoBehaviour
     private void Start()
     {
         isOutFading = false;
+
+        PlateformColor.a = 0;
+
         renderer = GetComponent<Renderer>();
+        renderer.material.color = PlateformColor;
     }
 
     /// <summary>
