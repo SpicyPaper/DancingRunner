@@ -8,6 +8,7 @@ public class Plateform : MonoBehaviour
 
     private new Renderer renderer;
     private bool isOutFading;
+    private bool isEnable;
     private const float OUT_FADING_TIME = 1;
     private float outFadingCurrentTime;
     
@@ -22,6 +23,7 @@ public class Plateform : MonoBehaviour
 
         renderer = GetComponent<Renderer>();
         renderer.material.color = PlateformColor;
+        PlateformColor.a = 1;
     }
 
     /// <summary>
@@ -33,9 +35,14 @@ public class Plateform : MonoBehaviour
     {
         if (other.tag == "PlateformHighlighter")
         {
-            isOutFading = false;
-            Color color = renderer.material.color;
-            renderer.material.color = new Color(color.r, color.g, color.b, 1);
+            isEnable = LevelManager.CurrentPossibleColor.Contains(PlateformColor);
+
+            if (isEnable)
+            {
+                isOutFading = false;
+                Color color = renderer.material.color;
+                renderer.material.color = new Color(color.r, color.g, color.b, 1);
+            }
         }
     }
 
@@ -48,8 +55,11 @@ public class Plateform : MonoBehaviour
     {
         if (other.tag == "PlateformHighlighter")
         {
-            isOutFading = true;
-            outFadingCurrentTime = 0;
+            if(isEnable)
+            {
+                isOutFading = true;
+                outFadingCurrentTime = 0;
+            }
         }
     }
     

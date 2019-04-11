@@ -13,9 +13,9 @@ public class Highlighter : MonoBehaviour
         speed = 20;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (other.tag == "Start")
+        if (collider.tag == "Start")
         {
             if(startHitCounter > 0)
             {

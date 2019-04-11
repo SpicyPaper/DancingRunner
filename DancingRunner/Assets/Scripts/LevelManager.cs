@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public static List<GameObject> Players;
+    public static List<Color> CurrentPossibleColor;
+
     public GameObject PlateformHighlighterModel;
     public GameObject PlayerModel;
-
-    public List<GameObject> Players { get; private set; }
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
@@ -30,7 +31,7 @@ public class LevelManager : MonoBehaviour
         highlightersParent = new GameObject("Highlighters");
 
         CreateLevelStructure();
-        CreatePlayers(2);
+        CreatePlayers(1);
 
         //PrintAllLevelPlateforms();
     }
@@ -39,6 +40,30 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         HighlighterGenerator();
+        UpdatePossibleColors();
+    }
+
+    /// <summary>
+    /// Update the current possible colors
+    /// </summary>
+    private void UpdatePossibleColors()
+    {
+        List<Color> colors = new List<Color>();
+        Vector3 fusionnedColor = new Vector3();
+
+        // The color of each player
+        foreach (GameObject player in Players)
+        {
+            Color currentColor = player.GetComponent<ColorChanger>().GetColor();
+            colors.Add(currentColor);
+            fusionnedColor += new Vector3(currentColor.r, currentColor.g, currentColor.b);
+        }
+
+        // The fusionned color based on the color of each players
+        fusionnedColor /= Players.Count;
+        colors.Add(new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z));
+
+        CurrentPossibleColor = colors;
     }
 
     /// <summary>

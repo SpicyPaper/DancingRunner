@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-
     private Color[] colors = { Color.red, Color.green, Color.blue };
     private int currentIndex = 0;
 
