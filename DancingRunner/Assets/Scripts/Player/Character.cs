@@ -44,6 +44,8 @@ public class Character : MonoBehaviour
         }
 
         Vector3 move = new Vector3(Input.GetAxis("HorizontalP" + PlayerId), 0, Input.GetAxis("VerticalP" + PlayerId)).normalized;
+
+        move = Quaternion.LookRotation(Camera.main.transform.forward) * move;
         controller.Move(move * Time.deltaTime * Speed);
         
         if (move != Vector3.zero)
