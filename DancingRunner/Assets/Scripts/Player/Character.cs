@@ -22,17 +22,19 @@ public class Character : MonoBehaviour
     private bool isGrounded = true;
     private Animator playerAnimator;
     private Vector3 wallNormal;
-
+    private ColorChanger colorChanger;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         playerAnimator = GetComponentInChildren<Animator>();
+        colorChanger = GetComponent<ColorChanger>();
     }
 
     void Update()
     {
-        
+        if (Input.GetButtonDown("ChangeColorP" + PlayerId))
+            colorChanger.ChangeColor();
 
         isGrounded = Physics.CheckSphere(GroundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
         if (isGrounded && velocity.y < 0)
@@ -56,7 +58,6 @@ public class Character : MonoBehaviour
                 Jump();
             else if (isOnWall)
                 WallJump();
-
 
         velocity.y += Gravity * Time.deltaTime;
 
