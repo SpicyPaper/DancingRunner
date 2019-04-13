@@ -667,9 +667,9 @@ MonoBehaviour:
     type: 3}
   PlayerModel: {fileID: 3637601446775341297, guid: d0e9f002c0c768644b4db91f6081bee2,
     type: 3}
-  HighlighterInterval: 2.32
-  MusicDelay: 0.3
-  PlayedMusic: {fileID: 8300000, guid: a617a5994aa8ba24b8522b775811799b, type: 3}
+  HighlighterInterval: 1.36
+  MusicDelay: 1.7
+  PlayedMusic: {fileID: 8300000, guid: b20b5208a7d9d984a87b0f88f0883662, type: 3}
   MainAudioSource: {fileID: 303180563}
   AudiowaveParticle: {fileID: 1442491345}
 --- !u!1001 &1003948566
