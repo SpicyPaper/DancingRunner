@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-
+    public int PlayerId = 1;
     private Color[] colors = { Color.red, Color.green, Color.blue };
     private int currentIndex = 0;
 
@@ -19,7 +19,7 @@ public class ColorChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetButtonDown("ChangeColorP" + PlayerId))
             ChangeColor();
     }
 

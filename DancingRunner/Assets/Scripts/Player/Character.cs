@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public int PlayerId = 1;
     public float Speed = 5f;
     public float JumpHeight = 2f;
     public float Gravity = -9.81f;
@@ -40,7 +41,7 @@ public class Character : MonoBehaviour
             playerAnimator.SetBool("IsJumping", false);
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        Vector3 move = new Vector3(Input.GetAxis("HorizontalP" + PlayerId), 0, Input.GetAxis("VerticalP" + PlayerId)).normalized;
         controller.Move(move * Time.deltaTime * Speed);
         
         if (move != Vector3.zero)
@@ -50,7 +51,7 @@ public class Character : MonoBehaviour
 
         bool isOnWall = IsOnWall();
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("JumpP" + PlayerId))
             if (isGrounded)
                 Jump();
             else if (isOnWall)
