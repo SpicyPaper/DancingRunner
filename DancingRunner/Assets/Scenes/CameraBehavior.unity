@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.56452316, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 31121461}
   - component: {fileID: 31121460}
   - component: {fileID: 31121459}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 307889953}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stage 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 373840739}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stage final
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,6 +311,75 @@ Transform:
   m_Father: {fileID: 2016655341}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &515208874
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3637601446775341297, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerCharacterController
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637601446775341307, guid: d0e9f002c0c768644b4db91f6081bee2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e9f002c0c768644b4db91f6081bee2, type: 3}
 --- !u!4 &731876222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2942811572579396313, guid: 1be7f657c02625740b994df48d06d950,
@@ -330,7 +399,7 @@ GameObject:
   - component: {fileID: 784776603}
   - component: {fileID: 784776602}
   - component: {fileID: 784776605}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,6 +508,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start
       objectReference: {fileID: 0}
+    - target: {fileID: 2942811572579396312, guid: 1be7f657c02625740b994df48d06d950,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2942811572579396313, guid: 1be7f657c02625740b994df48d06d950,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -509,7 +583,7 @@ GameObject:
   - component: {fileID: 1047619803}
   - component: {fileID: 1047619802}
   - component: {fileID: 1047619805}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +787,7 @@ GameObject:
   - component: {fileID: 1300846143}
   - component: {fileID: 1300846142}
   - component: {fileID: 1300846141}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -802,7 +876,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425611571}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stage 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -846,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1470394402
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1042,7 +1116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1647405479}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stage 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,6 +1162,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 2942811572579396312, guid: 1be7f657c02625740b994df48d06d950,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2942811572579396313, guid: 1be7f657c02625740b994df48d06d950,
         type: 3}
@@ -1158,6 +1237,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start
       objectReference: {fileID: 0}
+    - target: {fileID: 2942811572579396312, guid: 1be7f657c02625740b994df48d06d950,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2942811572579396313, guid: 1be7f657c02625740b994df48d06d950,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1224,7 +1308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2016655341}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Level Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1267,6 +1351,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 2942811572579396312, guid: 1be7f657c02625740b994df48d06d950,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2942811572579396313, guid: 1be7f657c02625740b994df48d06d950,
         type: 3}
