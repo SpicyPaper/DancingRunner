@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public float MusicDelay;
     public AudioClip PlayedMusic;
     public AudioSource MainAudioSource;
+    public ParticleSystem AudiowaveParticle;
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
@@ -28,6 +29,10 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         PlateformFadingTime = HighlighterInterval + HighlighterInterval * 0.1f;
+
+        var audiowaveEmission = AudiowaveParticle.emission;
+        audiowaveEmission.rateOverTime = 1f / HighlighterInterval;
+
         Players = new List<GameObject>();
         plateformsPerStage = new List<List<GameObject>>();
         highlighters = new List<GameObject>();
@@ -86,6 +91,9 @@ public class LevelManager : MonoBehaviour
         // The fusionned color based on the color of each players
         fusionnedColor /= Players.Count;
         colors.Add(new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z));
+
+        ParticleSystem.MainModule settings = AudiowaveParticle.main;
+        settings.startColor = new ParticleSystem.MinMaxGradient(colors[colors.Count -1]);
 
         CurrentPossibleColor = colors;
     }
