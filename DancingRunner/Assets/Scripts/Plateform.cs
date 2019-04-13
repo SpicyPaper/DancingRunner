@@ -81,11 +81,11 @@ public class Plateform : MonoBehaviour
     private void UpdateCollider()
     {
         Color color = renderer.material.color;
-        
-        foreach (GameObject player in LevelManager.Players)
-        {
-            Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider, color.a <= 0);
-        }
+        GetComponent<BoxCollider>().enabled = color.a > 0;
+        //foreach (GameObject player in LevelManager.Players)
+        //{
+        //    Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider, color.a <= 0);
+        //}
     }
 
     /// <summary>
