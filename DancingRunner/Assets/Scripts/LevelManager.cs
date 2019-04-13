@@ -126,7 +126,7 @@ public class LevelManager : MonoBehaviour
 
         if (highlighterElapsedTime > HighlighterInterval)
         {
-            highlighterElapsedTime = 0;
+            highlighterElapsedTime = highlighterElapsedTime - HighlighterInterval;
 
             Vector3 currentStageStart = plateformsPerStage[currentStageId][0].transform.position;
 
