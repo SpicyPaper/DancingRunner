@@ -15,14 +15,7 @@ public class ColorChanger : MonoBehaviour
         ChangeColor();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-            ChangeColor();
-    }
-
-    private void ChangeColor()
+    public void ChangeColor()
     {
         Color color = colors[currentIndex++ % colors.Length];
         skinRenderer.material.SetColor("_Color", color);

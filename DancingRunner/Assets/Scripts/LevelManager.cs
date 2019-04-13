@@ -96,6 +96,8 @@ public class LevelManager : MonoBehaviour
             player.transform.position = plateformsPerStage[currentStageId][0].transform.position +
                 Vector3.up * player.GetComponent<CharacterController>().height * (i + 2) * 1.5f;
 
+            player.GetComponentInChildren<SkinnedMeshRenderer>().material = new Material(PlayerModel.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
+            player.GetComponent<Character>().PlayerId = i + 1;
             Players.Add(player);
         }
     }
