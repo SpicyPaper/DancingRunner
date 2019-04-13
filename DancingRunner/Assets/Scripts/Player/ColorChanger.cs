@@ -19,6 +19,7 @@ public class ColorChanger : MonoBehaviour
     {
         Color color = colors[currentIndex++ % colors.Length];
         skinRenderer.material.SetColor("_Color", color);
+        skinRenderer.material.SetColor("_EmissionColor", color);
     }
 
     public Color GetColor()
