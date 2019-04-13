@@ -12,7 +12,6 @@ public class Plateform : MonoBehaviour
 
     private bool isOutFading;
     private bool isEnable;
-    private const float OUT_FADING_TIME = 1;
     private float outFadingCurrentTime;
     
     /// <summary>
@@ -85,7 +84,7 @@ public class Plateform : MonoBehaviour
         
         foreach (GameObject player in LevelManager.Players)
         {
-            Physics.IgnoreCollision(player.GetComponent<Collider>(), collider, color.a <= 0);
+            Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider, color.a <= 0);
         }
     }
 
@@ -100,7 +99,7 @@ public class Plateform : MonoBehaviour
 
             outFadingCurrentTime += Time.deltaTime;
 
-            float outFadingCurrentPercent = outFadingCurrentTime / OUT_FADING_TIME;
+            float outFadingCurrentPercent = outFadingCurrentTime / LevelManager.PlateformFadingTime;
 
             float alpha = Mathf.Lerp(1, 0, outFadingCurrentPercent);
             renderer.material.color = new Color(color.r, color.g, color.b, alpha);

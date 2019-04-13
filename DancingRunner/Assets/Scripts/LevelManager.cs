@@ -7,15 +7,19 @@ public class LevelManager : MonoBehaviour
 {
     public static List<GameObject> Players;
     public static List<Color> CurrentPossibleColor;
+    public static float PlateformFadingTime;
 
     public GameObject PlateformHighlighterModel;
     public GameObject PlayerModel;
+    public float HighlighterInterval = 1;
+    public float MusicDelay;
+    public AudioClip PlayedMusic;
+    public AudioSource MainAudioSource;
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
     private GameObject level;
     private float highlighterElapsedTime;
-    private float highlighterInterval;
     private int currentStageId;
     private GameObject highlightersParent;
     private GameObject charactersParent;
@@ -23,17 +27,20 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        PlateformFadingTime = HighlighterInterval + HighlighterInterval * 0.1f;
         Players = new List<GameObject>();
         plateformsPerStage = new List<List<GameObject>>();
         highlighters = new List<GameObject>();
         level = GetComponent<Transform>().gameObject;
-        highlighterInterval = 1;
         currentStageId = 0;
         highlightersParent = new GameObject("Highlighters");
         charactersParent = new GameObject("Characters");
 
         CreateLevelStructure();
         CreatePlayers(1);
+
+        MainAudioSource.clip = PlayedMusic;
+        MainAudioSource.PlayDelayed(MusicDelay);
 
         //PrintAllLevelPlateforms();
     }
@@ -109,7 +116,7 @@ public class LevelManager : MonoBehaviour
     {
         highlighterElapsedTime += Time.deltaTime;
 
-        if (highlighterElapsedTime > highlighterInterval)
+        if (highlighterElapsedTime > HighlighterInterval)
         {
             highlighterElapsedTime = 0;
 
