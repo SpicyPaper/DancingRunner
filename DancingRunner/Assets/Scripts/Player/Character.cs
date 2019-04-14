@@ -56,6 +56,8 @@ public class Character : MonoBehaviour
 
         bool isOnWall = IsOnWall();
 
+        Debug.Log(isOnWall);
+
         if (Input.GetButtonDown("JumpP" + PlayerId))
             if (isGrounded)
                 Jump();
@@ -103,7 +105,7 @@ public class Character : MonoBehaviour
         {
             sumNormals += hit.normal;
         }
-        if (sumNormals.y == 0 && (sumNormals.x != 0 || sumNormals.z != 0) && !isGrounded)
+        if ((int)sumNormals.y == 0 && (sumNormals.x != 0 || sumNormals.z != 0) && !isGrounded)
         {
             wallNormal = sumNormals;
             playerAnimator.SetBool("IsOnWall", true);
