@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public static List<GameObject> Players;
     public static List<Color> CurrentPossibleColor;
     public static float PlateformFadingTime;
+    public static int CurrentStageId;
 
     public GameObject PlateformHighlighterModel;
     public GameObject PlayerModel;
@@ -15,34 +16,36 @@ public class LevelManager : MonoBehaviour
     public float MusicDelay;
     public AudioClip PlayedMusic;
     public AudioSource MainAudioSource;
-    public ParticleSystem AudiowaveParticle;
+    public ParticleSystem AudiowaveParticleSystem;
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
     private GameObject level;
     private float highlighterElapsedTime;
-    private int currentStageId;
     private GameObject highlightersParent;
     private GameObject charactersParent;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Initialize level and audio
+    /// </summary>
     private void Start()
     {
         PlateformFadingTime = HighlighterInterval + HighlighterInterval * 0.1f;
 
-        var audiowaveEmission = AudiowaveParticle.emission;
+        var audiowaveEmission = AudiowaveParticleSystem.emission;
         audiowaveEmission.rateOverTime = 1f / HighlighterInterval;
 
         Players = new List<GameObject>();
         plateformsPerStage = new List<List<GameObject>>();
         highlighters = new List<GameObject>();
         level = GetComponent<Transform>().gameObject;
-        currentStageId = 0;
+        CurrentStageId = 0;
         highlightersParent = new GameObject("Highlighters");
         charactersParent = new GameObject("Characters");
 
         CreateLevelStructure();
         CreatePlayers(2);
+        ReplaceParticleSystem();
 
         MainAudioSource.clip = PlayedMusic;
         MainAudioSource.PlayDelayed(MusicDelay);
@@ -50,12 +53,30 @@ public class LevelManager : MonoBehaviour
         //PrintAllLevelPlateforms();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Call update methods every frame
+    /// </summary>
     private void Update()
     {
+        AudioManager();
         UpdatePossibleColors();
         HighlighterGenerator();
         UpdateExistingHighlighters();
+    }
+
+    /// <summary>
+    /// Check when the audio source finished playing the clip.
+    /// Resync music with objects.
+    /// </summary>
+    private void AudioManager()
+    {
+        if (!MainAudioSource.isPlaying)
+        {
+            highlighterElapsedTime = 0;
+            AudiowaveParticleSystem.Play();
+
+            MainAudioSource.PlayDelayed(MusicDelay);
+        }
     }
 
     /// <summary>
@@ -92,29 +113,10 @@ public class LevelManager : MonoBehaviour
         fusionnedColor /= Players.Count;
         colors.Add(new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z));
 
-        ParticleSystem.MainModule settings = AudiowaveParticle.main;
+        ParticleSystem.MainModule settings = AudiowaveParticleSystem.main;
         settings.startColor = new ParticleSystem.MinMaxGradient(colors[colors.Count -1]);
 
         CurrentPossibleColor = colors;
-    }
-
-    /// <summary>
-    /// Create all the players needed in the game
-    /// </summary>
-    /// <param name="numberOfPlayer"></param>
-    private void CreatePlayers(int numberOfPlayer)
-    {
-        for (int i = 0; i < numberOfPlayer; i++)
-        {
-            GameObject player = Instantiate(PlayerModel);
-            player.transform.parent = charactersParent.transform;
-            player.transform.position = plateformsPerStage[currentStageId][0].transform.position +
-                Vector3.up * player.GetComponent<CharacterController>().height * (i + 2) * 1.5f;
-
-            player.GetComponentInChildren<SkinnedMeshRenderer>().material = new Material(PlayerModel.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
-            player.GetComponent<Character>().PlayerId = i + 1;
-            Players.Add(player);
-        }
     }
 
     /// <summary>
@@ -128,7 +130,7 @@ public class LevelManager : MonoBehaviour
         {
             highlighterElapsedTime = highlighterElapsedTime - HighlighterInterval;
 
-            Vector3 currentStageStart = plateformsPerStage[currentStageId][0].transform.position;
+            Vector3 currentStageStart = plateformsPerStage[CurrentStageId][0].transform.position;
 
             GameObject highlighter = Instantiate(PlateformHighlighterModel);
             highlighter.transform.parent = highlightersParent.transform;
@@ -136,6 +138,33 @@ public class LevelManager : MonoBehaviour
             highlighter.GetComponent<Highlighter>().color = CurrentPossibleColor[CurrentPossibleColor.Count - 1];
 
             highlighters.Add(highlighter);
+        }
+    }
+    
+    /// <summary>
+    /// Replace the particle system to the current start plateform
+    /// </summary>
+    private void ReplaceParticleSystem()
+    {
+        AudiowaveParticleSystem.transform.position = plateformsPerStage[CurrentStageId][0].transform.position;
+    }
+
+    /// <summary>
+    /// Create all the players needed in the game
+    /// </summary>
+    /// <param name="numberOfPlayer"></param>
+    private void CreatePlayers(int numberOfPlayer)
+    {
+        for (int i = 0; i < numberOfPlayer; i++)
+        {
+            GameObject player = Instantiate(PlayerModel);
+            player.transform.parent = charactersParent.transform;
+            player.transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
+                Vector3.up * player.GetComponent<CharacterController>().height * (i + 2) * 1.5f;
+
+            player.GetComponentInChildren<SkinnedMeshRenderer>().material = new Material(PlayerModel.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
+            player.GetComponent<Character>().PlayerId = i + 1;
+            Players.Add(player);
         }
     }
 
