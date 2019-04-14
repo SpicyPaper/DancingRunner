@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     public int PlayerId = 1;
     public float Speed = 5f;
     public float JumpHeight = 2f;
+    public float WallJumpPropulsion = 2f;
     public float Gravity = -9.81f;
     public float GroundDistance = 0.2f;
     public LayerMask Ground;
@@ -23,6 +24,7 @@ public class Character : MonoBehaviour
     private Animator playerAnimator;
     private Vector3 wallNormal;
     private ColorChanger colorChanger;
+    private bool canControlCharacter = true;
 
     void Start()
     {
@@ -43,20 +45,21 @@ public class Character : MonoBehaviour
             playerAnimator.SetBool("IsJumping", false);
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("HorizontalP" + PlayerId), 0, Input.GetAxis("VerticalP" + PlayerId)).normalized;
+        if (canControlCharacter)
+        {
+            Vector3 move = new Vector3(Input.GetAxis("HorizontalP" + PlayerId), 0, Input.GetAxis("VerticalP" + PlayerId)).normalized;
 
-        move = Quaternion.LookRotation(Camera.main.transform.forward) * move;
-        move.y = 0;
-        controller.Move(move * Time.deltaTime * Speed);
-        
-        if (move != Vector3.zero)
-            Move(move);
-        else
-            StopMove();
+            move = Quaternion.LookRotation(Camera.main.transform.forward) * move;
+            move.y = 0;
+            controller.Move(move * Time.deltaTime * Speed);
+
+            if (move != Vector3.zero)
+                Move(move);
+            else
+                StopMove();
+        }
 
         bool isOnWall = IsOnWall();
-
-        Debug.Log(isOnWall);
 
         if (Input.GetButtonDown("JumpP" + PlayerId))
             if (isGrounded)
@@ -75,9 +78,10 @@ public class Character : MonoBehaviour
 
     private void WallJump()
     {
-        velocity = wallNormal * Mathf.Sqrt(JumpHeight * -2f * Gravity);
+        velocity = wallNormal.normalized * Mathf.Sqrt(WallJumpPropulsion * -2f * Gravity);
         velocity.y = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-        StartCoroutine(RotatePlayer(transform.rotation, 1.2f));
+        canControlCharacter = false;
+        StartCoroutine(RotatePlayer(transform.rotation, 0.7f));
     }
 
 
@@ -95,7 +99,8 @@ public class Character : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, endRotation, Time.time - startTime);
             yield return 1; // wait for next frame
         }
-        
+        canControlCharacter = true;
+
     }
 
     private bool IsOnWall()
