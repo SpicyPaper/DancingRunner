@@ -41,7 +41,6 @@ public class Plateform : MonoBehaviour
         if (other.tag == "PlateformHighlighter")
         {
             isEnable = CompareColor((other.gameObject.GetComponent<Highlighter>()).color);
-            //isEnable = LevelManager.CurrentPossibleColor.Contains(PlateformColor);
 
             if (isEnable)
             {
