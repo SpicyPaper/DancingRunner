@@ -40,7 +40,8 @@ public class Plateform : MonoBehaviour
     {
         if (other.tag == "PlateformHighlighter")
         {
-            isEnable = LevelManager.CurrentPossibleColor.Contains(PlateformColor);
+            isEnable = CompareColor((other.gameObject.GetComponent<Highlighter>()).color);
+            //isEnable = LevelManager.CurrentPossibleColor.Contains(PlateformColor);
 
             if (isEnable)
             {
@@ -49,6 +50,19 @@ public class Plateform : MonoBehaviour
                 renderer.material.color = new Color(color.r, color.g, color.b, 1);
             }
         }
+    }
+
+    private bool CompareColor(Color highlighterColor)
+    {
+        bool isOk = true;
+        if (PlateformColor.r > 0 && highlighterColor.r <= 0)
+            isOk = false;
+        if (PlateformColor.g > 0 && highlighterColor.g <= 0)
+            isOk = false;
+        if (PlateformColor.b > 0 && highlighterColor.b <= 0)
+            isOk = false;
+
+        return isOk;
     }
 
     /// <summary>

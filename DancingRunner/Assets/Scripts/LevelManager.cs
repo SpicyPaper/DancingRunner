@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
         charactersParent = new GameObject("Characters");
 
         CreateLevelStructure();
-        CreatePlayers(1);
+        CreatePlayers(2);
 
         MainAudioSource.clip = PlayedMusic;
         MainAudioSource.PlayDelayed(MusicDelay);
@@ -53,8 +53,8 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        HighlighterGenerator();
         UpdatePossibleColors();
+        HighlighterGenerator();
         UpdateExistingHighlighters();
     }
 
@@ -133,6 +133,7 @@ public class LevelManager : MonoBehaviour
             GameObject highlighter = Instantiate(PlateformHighlighterModel);
             highlighter.transform.parent = highlightersParent.transform;
             highlighter.transform.position = currentStageStart;
+            highlighter.GetComponent<Highlighter>().color = CurrentPossibleColor[CurrentPossibleColor.Count - 1];
 
             highlighters.Add(highlighter);
         }
