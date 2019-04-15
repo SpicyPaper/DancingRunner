@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour
     public AudioClip PlayedMusic;
     public AudioSource MainAudioSource;
     public ParticleSystem AudiowaveParticleSystem;
+    public new Transform camera;
+    public float LavaHeight;
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
@@ -24,6 +26,7 @@ public class LevelManager : MonoBehaviour
     private float highlighterElapsedTime;
     private GameObject highlightersParent;
     private GameObject charactersParent;
+    private CameraBehavior cameraBehavior;
 
     /// <summary>
     /// Initialize level and audio
@@ -47,6 +50,8 @@ public class LevelManager : MonoBehaviour
         CreatePlayers(2);
         ReplaceParticleSystem();
 
+        cameraBehavior = new CameraBehavior(camera, level, Players[0].transform, Players[1].transform, 0.3f);
+
         MainAudioSource.clip = PlayedMusic;
         MainAudioSource.PlayDelayed(MusicDelay);
 
@@ -62,6 +67,15 @@ public class LevelManager : MonoBehaviour
         UpdatePossibleColors();
         HighlighterGenerator();
         UpdateExistingHighlighters();
+        RespawnPlayers();
+
+        cameraBehavior.UpdateCamera();
+        int stageId = cameraBehavior.GetCameraIndex();
+        if (stageId >= 0)
+        {
+            CurrentStageId = cameraBehavior.GetCameraIndex();
+        }
+        ReplaceParticleSystem();
     }
 
     /// <summary>
@@ -160,11 +174,26 @@ public class LevelManager : MonoBehaviour
             GameObject player = Instantiate(PlayerModel);
             player.transform.parent = charactersParent.transform;
             player.transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
-                Vector3.up * player.GetComponent<CharacterController>().height * (i + 2) * 1.5f;
+                Vector3.up * 1.5f + Vector3.right * (2*i - 1);
 
             player.GetComponentInChildren<SkinnedMeshRenderer>().material = new Material(PlayerModel.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
             player.GetComponent<Character>().PlayerId = i + 1;
             Players.Add(player);
+        }
+    }
+
+    /// <summary>
+    /// Check when a player is falling and needs to be respawned
+    /// </summary>
+    private void RespawnPlayers()
+    {
+        for (int i = 0; i < Players.Count; i++)
+        {
+            if (Players[i].transform.position.y <= LavaHeight)
+            {
+                Players[i].transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
+                    Vector3.up * 1.5f + Vector3.right * (2 * i - 1);
+            }
         }
     }
 
@@ -194,8 +223,10 @@ public class LevelManager : MonoBehaviour
                 
                 if (startPlateform != null && stagePlateforms.Count > 0)
                 {
-                    List<GameObject> tmpStagePlateforms = new List<GameObject>();
-                    tmpStagePlateforms.Add(startPlateform);
+                    List<GameObject> tmpStagePlateforms = new List<GameObject>
+                    {
+                        startPlateform
+                    };
                     tmpStagePlateforms.AddRange(stagePlateforms);
 
                     plateformsPerStage.Add(tmpStagePlateforms);
