@@ -5,14 +5,15 @@ using UnityEngine;
 public class CameraBehavior
 {
     private Transform camera;
-    private GameObject level;
+    private readonly GameObject level;
     private Transform player1;
     private Transform player2;
-    private float smoothTime;
+    private readonly float smoothTime;
     
     private List<GameObject> stages;
     private Vector3 velocity;
     private Vector3 initCamera;
+    private int maxId;
 
     public CameraBehavior(Transform camera, GameObject level, Transform player1, Transform player2, float smoothTime)
     {
@@ -31,6 +32,7 @@ public class CameraBehavior
             }
         }
         initCamera = new Vector3(camera.position.x, camera.position.y, camera.position.z);
+        maxId = 0;
     }
 
     // Update is called once per frame
@@ -56,6 +58,13 @@ public class CameraBehavior
                                                 smoothTime);
     }
 
+    private float StartPlatformZ(Transform platform)
+    {
+        float zPos = platform.position.z;
+        float zShift = platform.localScale.z / 2;
+        return zPos - zShift;
+    }
+
     public int GetCameraIndex()
     {
         int index1 = 0;
@@ -63,33 +72,47 @@ public class CameraBehavior
 
         for (int i = 0; i < stages.Count - 1; i++)
         {
-            if (player1.position.z > stages[i].transform.Find("Start").position.z && player1.position.z < stages[i + 1].transform.Find("Start").position.z)
+            if (player1.position.z > StartPlatformZ(stages[i].transform.Find("Start")) && player1.position.z < StartPlatformZ(stages[i + 1].transform.Find("Start")))
             {
                 index1 = i;
             }
-            if (player2.position.z > stages[i].transform.Find("Start").position.z && player2.position.z < stages[i + 1].transform.Find("Start").position.z)
+            if (player2.position.z > StartPlatformZ(stages[i].transform.Find("Start")) && player2.position.z < StartPlatformZ(stages[i + 1].transform.Find("Start")))
             {
                 index2 = i;
             }
         }
 
-        if (player1.position.z <= stages[0].transform.Find("Start").position.z)
+        if (player1.position.z <= StartPlatformZ(stages[0].transform.Find("Start")))
         {
             index1 = 0;
         }
-        if (player2.position.z <= stages[0].transform.Find("Start").position.z)
+        if (player2.position.z <= StartPlatformZ(stages[0].transform.Find("Start")))
         {
             index2 = 0;
         }
-        if (player1.position.z >= stages[stages.Count - 2].transform.Find("Start").position.z)
+        if (player1.position.z >= StartPlatformZ(stages[stages.Count - 2].transform.Find("Start")))
         {
             index1 = stages.Count - 2;
         }
-        if (player2.position.z >= stages[stages.Count - 2].transform.Find("Start").position.z)
+        if (player2.position.z >= StartPlatformZ(stages[stages.Count - 2].transform.Find("Start")))
         {
             index2 = stages.Count - 2;
         }
-        
-        return Mathf.Min(index1, index2);
+
+        int index = Mathf.Min(index1, index2);
+
+        if (index > maxId)
+        {
+            maxId = index;
+        }
+
+        if (index < maxId)
+        {
+            return maxId;
+        }
+        else
+        {
+            return index;
+        }
     }
 }
