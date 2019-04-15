@@ -174,7 +174,7 @@ public class LevelManager : MonoBehaviour
             GameObject player = Instantiate(PlayerModel);
             player.transform.parent = charactersParent.transform;
             player.transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
-                Vector3.up * 1.5f + Vector3.right * (2*i - 1);
+                Vector3.up * 1.5f + Vector3.right * (2 * i - 1);
 
             player.GetComponentInChildren<SkinnedMeshRenderer>().material = new Material(PlayerModel.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
             player.GetComponent<Character>().PlayerId = i + 1;
@@ -189,9 +189,10 @@ public class LevelManager : MonoBehaviour
     {
         for (int i = 0; i < Players.Count; i++)
         {
-            if (Players[i].transform.position.y <= LavaHeight)
+            GameObject player = Players[i];
+            if (player.transform.position.y <= LavaHeight)
             {
-                Players[i].transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
+                player.transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
                     Vector3.up * 1.5f + Vector3.right * (2 * i - 1);
             }
         }
