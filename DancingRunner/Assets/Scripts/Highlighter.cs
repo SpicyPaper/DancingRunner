@@ -12,6 +12,7 @@ public class Highlighter : MonoBehaviour
     void Start()
     {
         speed = 20;
+        gameObject.transform.localScale = new Vector3(100, 100, 0.1f);
     }
 
     private void OnTriggerEnter(Collider collider)

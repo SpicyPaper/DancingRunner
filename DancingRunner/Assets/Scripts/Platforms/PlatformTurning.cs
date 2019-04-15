@@ -4,7 +4,9 @@ public class PlatformTurning : MonoBehaviour
 {
     public float speed;
     public float radiusX;
+    public float shiftX;
     public float radiusZ;
+    public float shiftZ;
 
     private Vector3 initPos;
 
@@ -17,6 +19,6 @@ public class PlatformTurning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = initPos + new Vector3(radiusX * Mathf.Sin(Time.time * speed), 0f, radiusZ * Mathf.Cos(Time.time * speed));
+        transform.position = initPos + new Vector3(radiusX * Mathf.Sin(Time.time * speed + shiftX), 0f, radiusZ * Mathf.Cos(Time.time * speed + shiftZ));
     }
 }
