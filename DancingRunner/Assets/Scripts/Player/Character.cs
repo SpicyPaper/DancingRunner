@@ -38,7 +38,8 @@ public class Character : MonoBehaviour
         if (Input.GetButtonDown("ChangeColorP" + PlayerId))
             colorChanger.ChangeColor();
 
-        isGrounded = Physics.CheckSphere(GroundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
+        //isGrounded = Physics.CheckSphere(GroundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
+        isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
             velocity = Vector3.zero;
