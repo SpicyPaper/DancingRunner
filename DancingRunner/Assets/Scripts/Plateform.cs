@@ -112,11 +112,6 @@ public class Plateform : MonoBehaviour
                 Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider, false);
             }
         }
-
-        //foreach (GameObject player in LevelManager.Players)
-        //{
-        //    Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider, color.a <= 0);
-        //}
     }
 
     /// <summary>

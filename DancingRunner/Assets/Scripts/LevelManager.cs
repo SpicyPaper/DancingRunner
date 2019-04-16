@@ -199,8 +199,8 @@ public class LevelManager : MonoBehaviour
         {
             if (Players[i].transform.position.y <= LavaHeight)
             {
-                Players[i].transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
-                    Vector3.up * 1.5f + Vector3.right * (2 * i - 1);
+                Players[i].GetComponent<Character>().WarpToPosition(plateformsPerStage[CurrentStageId][0].transform.position +
+                    Vector3.up * 1.5f + Vector3.right * (2 * i - 1));
             }
         }
     }

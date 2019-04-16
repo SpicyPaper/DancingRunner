@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
     private Vector3 wallNormal;
     private ColorChanger colorChanger;
     private bool canControlCharacter = true;
+    private Vector3 warpPosition = Vector3.zero;
 
     void Start()
     {
@@ -37,9 +38,9 @@ public class Character : MonoBehaviour
     {
         if (Input.GetButtonDown("ChangeColorP" + PlayerId))
             colorChanger.ChangeColor();
-
-        //isGrounded = Physics.CheckSphere(GroundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
+        
         isGrounded = controller.isGrounded;
+
         if (isGrounded && velocity.y < 0)
         {
             velocity = Vector3.zero;
@@ -59,7 +60,7 @@ public class Character : MonoBehaviour
             else
                 StopMove();
         }
-
+        
         bool isOnWall = IsOnWall();
 
         if (Input.GetButtonDown("JumpP" + PlayerId))
@@ -77,6 +78,20 @@ public class Character : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    void LateUpdate()
+    {
+        if (warpPosition != Vector3.zero)
+        {
+            transform.position = warpPosition;
+            warpPosition = Vector3.zero;
+        }
+    }
+
+    public void WarpToPosition(Vector3 newPosition)
+    {
+        warpPosition = newPosition;
+    }
+
     private void WallJump()
     {
         velocity = wallNormal.normalized * Mathf.Sqrt(WallJumpPropulsion * -2f * Gravity);
@@ -84,8 +99,6 @@ public class Character : MonoBehaviour
         canControlCharacter = false;
         StartCoroutine(RotatePlayer(transform.rotation, 0.7f));
     }
-
-
 
     IEnumerator RotatePlayer(Quaternion startRotation, float duration)
     {
