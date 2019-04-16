@@ -27,6 +27,9 @@ public class LevelManager : MonoBehaviour
     private GameObject highlightersParent;
     private GameObject charactersParent;
     private CameraBehavior cameraBehavior;
+    private Dictionary<int, List<GameObject>> ghosties;
+
+    private const float SPEED_FACTOR = 100;
 
     /// <summary>
     /// Initialize level and audio
@@ -45,6 +48,7 @@ public class LevelManager : MonoBehaviour
         CurrentStageId = 0;
         highlightersParent = new GameObject("Highlighters");
         charactersParent = new GameObject("Characters");
+        ghosties = new Dictionary<int, List<GameObject>>();
 
         CreateLevelStructure();
         CreatePlayers(2);
@@ -68,6 +72,7 @@ public class LevelManager : MonoBehaviour
         HighlighterGenerator();
         UpdateExistingHighlighters();
         RespawnFallingPlayers();
+        MoveGhosties();
 
         cameraBehavior.UpdateCamera();
         int stageId = cameraBehavior.GetCameraIndex();
@@ -206,17 +211,83 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Move all Ghosties present in the active stage
+    /// </summary>
+    private void MoveGhosties()
+    {
+        List<GameObject> activeGhosties = ghosties[CurrentStageId];
+
+        foreach (GameObject ghosty in activeGhosties)
+        {
+            Ghosty ghostyScript = ghosty.GetComponent<Ghosty>();
+
+            if (CurrentFusionnedColor == ghosty.GetComponent<Ghosty>().color)
+            {
+                Vector3 posPlayer1 = Players[0].transform.position;
+                Vector3 posPlayer2 = Players[1].transform.position;
+                Vector3 posGhosty = ghosty.transform.position;
+
+                Vector3 headingPlayer1 = posPlayer1 - posGhosty;
+                Vector3 headingPlayer2 = posPlayer2 - posGhosty;
+
+                float distPlayer1 = headingPlayer1.magnitude;
+                float distPlayer2 = headingPlayer2.magnitude;
+
+                if (distPlayer1 < ghosty.transform.localScale.x / 2 + 0.5f)
+                {
+                    Players[0].GetComponent<Character>().WarpToPosition(plateformsPerStage[CurrentStageId][0].transform.position +
+                        Vector3.up * 1.5f - Vector3.right);
+                    ghosty.GetComponent<Ghosty>().Respawn();
+                }
+
+                if (distPlayer2 < ghosty.transform.localScale.x / 2 + 0.5f)
+                {
+                    Players[1].GetComponent<Character>().WarpToPosition(plateformsPerStage[CurrentStageId][0].transform.position +
+                        Vector3.up * 1.5f + Vector3.right);
+                    ghosty.GetComponent<Ghosty>().Respawn();
+                }
+
+                Vector3 direction = distPlayer1 < distPlayer2
+                    ? headingPlayer1 / distPlayer1
+                    : headingPlayer2 / distPlayer2;
+
+                Vector3 floatHorizontal = Quaternion.Euler(0, 90, 0) * direction;
+                Vector3 floatVertical = Quaternion.Euler(90, 0, 0) * direction;
+
+                direction *= ghostyScript.speed / SPEED_FACTOR;
+                floatHorizontal *= ghostyScript.horizontalFloatingAmplitude * Mathf.Sin(Time.time * ghostyScript.horizontalFloatingSpeed + ghostyScript.GetFloatingShift()) / 50;
+                floatVertical *= ghostyScript.verticalFloatingAmplitude * Mathf.Cos(Time.time * ghostyScript.verticalFloatingSpeed + ghostyScript.GetFloatingShift()) / 50;
+
+                ghosty.transform.position += direction + floatHorizontal + floatVertical;
+
+                Renderer rend = ghosty.GetComponent<Renderer>();
+                rend.material.SetColor("_Color", ghostyScript.color);
+            }
+            else
+            {
+                Renderer rend = ghosty.GetComponent<Renderer>();
+                Color color = ghostyScript.color;
+                rend.material.SetColor("_Color", new Color(0.6f, 0.6f, 0.6f));
+            }
+        }
+    }
+
+    /// <summary>
     /// Create the level structure
     /// </summary>
     private void CreateLevelStructure()
     {
         GameObject startPlateform = null;
         List<GameObject> stagePlateforms = new List<GameObject>();
+        List<GameObject> ghostiesPerStage;
 
+        int stageId = 0;
         foreach (Transform levelChild in level.transform)
         {
             if (levelChild.tag == "Stage")
             {
+                ghostiesPerStage = new List<GameObject>();
+
                 foreach (Transform stageChild in levelChild)
                 {
                     if (stageChild.tag == "Start")
@@ -226,6 +297,10 @@ public class LevelManager : MonoBehaviour
                     else if (stageChild.tag == "Plateform")
                     {
                         stagePlateforms.Add(stageChild.gameObject);
+                    }
+                    else if (stageChild.tag == "Ghosty")
+                    {
+                        ghostiesPerStage.Add(stageChild.gameObject);
                     }
                 }
                 
@@ -238,6 +313,7 @@ public class LevelManager : MonoBehaviour
                     tmpStagePlateforms.AddRange(stagePlateforms);
 
                     plateformsPerStage.Add(tmpStagePlateforms);
+                    ghosties.Add(stageId, ghostiesPerStage);
                 }
                 else
                 {
@@ -246,6 +322,7 @@ public class LevelManager : MonoBehaviour
 
                 startPlateform = null;
                 stagePlateforms.Clear();
+                stageId++;
             }
         }
 

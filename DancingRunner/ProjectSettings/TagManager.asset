@@ -10,6 +10,7 @@ TagManager:
   - Plateform
   - PlateformHighlighter
   - Stage
+  - Ghosty
   layers:
   - Default
   - TransparentFX
