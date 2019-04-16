@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static List<GameObject> Players;
-    public static List<Color> CurrentPossibleColor;
+    public static Color CurrentFusionnedColor;
     public static float PlateformFadingTime;
     public static int CurrentStageId;
 
@@ -64,10 +64,10 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         AudioManager();
-        UpdatePossibleColors();
+        UpdateFusionnedColor();
         HighlighterGenerator();
         UpdateExistingHighlighters();
-        RespawnPlayers();
+        RespawnFallingPlayers();
 
         cameraBehavior.UpdateCamera();
         int stageId = cameraBehavior.GetCameraIndex();
@@ -110,27 +110,34 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Update the current possible colors
     /// </summary>
-    private void UpdatePossibleColors()
+    private void UpdateFusionnedColor()
     {
-        List<Color> colors = new List<Color>();
         Vector3 fusionnedColor = new Vector3();
 
         // The color of each player
         foreach (GameObject player in Players)
         {
             Color currentColor = player.GetComponent<ColorChanger>().GetColor();
-            colors.Add(currentColor);
             fusionnedColor += new Vector3(currentColor.r, currentColor.g, currentColor.b);
         }
 
-        // The fusionned color based on the color of each players
-        fusionnedColor /= Players.Count;
-        colors.Add(new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z));
+        if(fusionnedColor.x > 0)
+        {
+            fusionnedColor.x = 1;
+        }
+        if(fusionnedColor.y > 0)
+        {
+            fusionnedColor.y = 1;
+        }
+        if(fusionnedColor.z > 0)
+        {
+            fusionnedColor.z = 1;
+        }
+        
+        CurrentFusionnedColor = new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z);
 
         ParticleSystem.MainModule settings = AudiowaveParticleSystem.main;
-        settings.startColor = new ParticleSystem.MinMaxGradient(colors[colors.Count -1]);
-
-        CurrentPossibleColor = colors;
+        settings.startColor = new ParticleSystem.MinMaxGradient(CurrentFusionnedColor);
     }
 
     /// <summary>
@@ -149,7 +156,7 @@ public class LevelManager : MonoBehaviour
             GameObject highlighter = Instantiate(PlateformHighlighterModel);
             highlighter.transform.parent = highlightersParent.transform;
             highlighter.transform.position = currentStageStart;
-            highlighter.GetComponent<Highlighter>().color = CurrentPossibleColor[CurrentPossibleColor.Count - 1];
+            highlighter.GetComponent<Highlighter>().color = CurrentFusionnedColor;
 
             highlighters.Add(highlighter);
         }
@@ -175,6 +182,7 @@ public class LevelManager : MonoBehaviour
             player.transform.parent = charactersParent.transform;
             player.transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
                 Vector3.up * 1.5f + Vector3.right * (2 * i - 1);
+            player.name = "Player" + (i + 1);
 
             player.GetComponentInChildren<SkinnedMeshRenderer>().material = new Material(PlayerModel.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
             player.GetComponent<Character>().PlayerId = i + 1;
@@ -185,14 +193,13 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Check when a player is falling and needs to be respawned
     /// </summary>
-    private void RespawnPlayers()
+    private void RespawnFallingPlayers()
     {
         for (int i = 0; i < Players.Count; i++)
         {
-            GameObject player = Players[i];
-            if (player.transform.position.y <= LavaHeight)
+            if (Players[i].transform.position.y <= LavaHeight)
             {
-                player.transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
+                Players[i].transform.position = plateformsPerStage[CurrentStageId][0].transform.position +
                     Vector3.up * 1.5f + Vector3.right * (2 * i - 1);
             }
         }

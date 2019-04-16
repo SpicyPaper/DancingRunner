@@ -40,7 +40,7 @@ public class Plateform : MonoBehaviour
     {
         if (other.tag == "PlateformHighlighter")
         {
-            isEnable = CompareColor((other.gameObject.GetComponent<Highlighter>()).color);
+            isEnable = CompareColor(other.gameObject.GetComponent<Highlighter>().color);
 
             if (isEnable)
             {
@@ -95,6 +95,24 @@ public class Plateform : MonoBehaviour
     {
         Color color = renderer.material.color;
         GetComponent<BoxCollider>().enabled = color.a > 0;
+
+        foreach (GameObject player in LevelManager.Players)
+        {
+            Color plateformColor = new Color(color.r, color.g, color.b);
+            Color playerColor = player.GetComponent<ColorChanger>().GetColor();
+            playerColor = new Color(playerColor.r, playerColor.g, playerColor.b);
+
+            if (plateformColor != LevelManager.CurrentFusionnedColor &&
+                plateformColor != playerColor)
+            {
+                Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider);
+            }
+            else
+            {
+                Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider, false);
+            }
+        }
+
         //foreach (GameObject player in LevelManager.Players)
         //{
         //    Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider, color.a <= 0);
