@@ -140,6 +140,10 @@ public class LevelManager : MonoBehaviour
         }
         
         CurrentFusionnedColor = new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z);
+        
+        GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", CurrentFusionnedColor);
+        GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
+
 
         ParticleSystem.MainModule settings = AudiowaveParticleSystem.main;
         settings.startColor = new ParticleSystem.MinMaxGradient(CurrentFusionnedColor);
