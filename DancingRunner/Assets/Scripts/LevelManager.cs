@@ -117,30 +117,37 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void UpdateFusionnedColor()
     {
-        Vector3 fusionnedColor = new Vector3();
+        if (plateformsPerStage[CurrentStageId][0].GetComponent<PlayerOnActivatorDetector>().MustShowAllPlatforms())
+        {
+            CurrentFusionnedColor = Color.white;
+        }
+        else
+        {
+            Vector3 fusionnedColor = new Vector3();
 
-        // The color of each player
-        foreach (GameObject player in Players)
-        {
-            Color currentColor = player.GetComponent<ColorChanger>().GetColor();
-            fusionnedColor += new Vector3(currentColor.r, currentColor.g, currentColor.b);
+            // The color of each player
+            foreach (GameObject player in Players)
+            {
+                Color currentColor = player.GetComponent<ColorChanger>().GetColor();
+                fusionnedColor += new Vector3(currentColor.r, currentColor.g, currentColor.b);
+            }
+
+            if (fusionnedColor.x > 0)
+            {
+                fusionnedColor.x = 1;
+            }
+            if (fusionnedColor.y > 0)
+            {
+                fusionnedColor.y = 1;
+            }
+            if (fusionnedColor.z > 0)
+            {
+                fusionnedColor.z = 1;
+            }
+
+            CurrentFusionnedColor = new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z);
         }
 
-        if(fusionnedColor.x > 0)
-        {
-            fusionnedColor.x = 1;
-        }
-        if(fusionnedColor.y > 0)
-        {
-            fusionnedColor.y = 1;
-        }
-        if(fusionnedColor.z > 0)
-        {
-            fusionnedColor.z = 1;
-        }
-        
-        CurrentFusionnedColor = new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z);
-        
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", CurrentFusionnedColor);
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
 

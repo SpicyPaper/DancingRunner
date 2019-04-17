@@ -34,8 +34,7 @@ public class CameraBehavior
         initCamera = new Vector3(camera.position.x, camera.position.y, camera.position.z);
         maxId = 0;
     }
-
-    // Update is called once per frame
+    
     public void UpdateCamera()
     {
         int cameraIndex = GetCameraIndex();
