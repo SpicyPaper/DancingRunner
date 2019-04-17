@@ -150,6 +150,7 @@ public class LevelManager : MonoBehaviour
 
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", CurrentFusionnedColor);
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
+        GameObject.Find("Note").GetComponent<ParticleSystemRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
 
 
         ParticleSystem.MainModule settings = AudiowaveParticleSystem.main;
