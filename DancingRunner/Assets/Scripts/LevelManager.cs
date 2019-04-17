@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
         CreatePlayers(2);
         ReplaceParticleSystem();
 
-        cameraBehavior = new CameraBehavior(camera, level, Players[0].transform, Players[1].transform, 0.3f);
+        cameraBehavior = new CameraBehavior(Camera.main.transform, level, Players[0].transform, Players[1].transform, 0.3f);
 
         MainAudioSource.clip = PlayedMusic;
         MainAudioSource.PlayDelayed(MusicDelay);

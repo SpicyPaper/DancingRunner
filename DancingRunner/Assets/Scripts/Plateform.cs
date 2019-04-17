@@ -47,6 +47,7 @@ public class Plateform : MonoBehaviour
                 isOutFading = false;
                 Color color = renderer.material.color;
                 renderer.material.color = new Color(color.r, color.g, color.b, 1);
+                renderer.material.SetColor("_EmissionColor", new Color(color.r, color.g, color.b, 1) * 10);
             }
         }
     }
