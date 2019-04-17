@@ -109,4 +109,4 @@ MonoBehaviour:
     minValue: 0.8294097
     maxValue: 3.6540432
   bloomScattering: 10
-  bloomIntensity: 2.56
+  bloomIntensity: 1.23
