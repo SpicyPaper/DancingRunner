@@ -10,7 +10,10 @@ public class PlayerOnActivatorDetector : MonoBehaviour
         startWaveEnablers = GetComponentsInChildren<StartWaveEnabler>();
     }
     
-
+    /// <summary>
+    /// Return whether or not all platforms must be showed
+    /// </summary>
+    /// <returns>True if yes, false otherwise</returns>
     public bool MustShowAllPlatforms()
     {
         bool showAllPlatforms = true;

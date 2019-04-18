@@ -36,11 +36,13 @@ public class Character : MonoBehaviour
 
     void Update()
     {
+        // Color change
         if (Input.GetButtonDown("ChangeColorP" + PlayerId))
             colorChanger.ChangeColor();
         
         isGrounded = controller.isGrounded;
 
+        // Movement
         if (isGrounded && velocity.y < 0)
         {
             velocity = Vector3.zero;
@@ -61,6 +63,7 @@ public class Character : MonoBehaviour
                 StopMove();
         }
         
+        // Jump / wall jump
         bool isOnWall = IsOnWall();
 
         if (Input.GetButtonDown("JumpP" + PlayerId))
@@ -80,6 +83,7 @@ public class Character : MonoBehaviour
 
     void LateUpdate()
     {
+        // Used to teleport correctly the player
         if (warpPosition != Vector3.zero)
         {
             transform.position = warpPosition;
@@ -87,11 +91,18 @@ public class Character : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Teleport the player to the specified position
+    /// </summary>
+    /// <param name="newPosition">New position of the player</param>
     public void WarpToPosition(Vector3 newPosition)
     {
         warpPosition = newPosition;
     }
 
+    /// <summary>
+    /// Execute a wall jump
+    /// </summary>
     private void WallJump()
     {
         velocity = wallNormal.normalized * Mathf.Sqrt(WallJumpPropulsion * -2f * Gravity);
@@ -100,6 +111,12 @@ public class Character : MonoBehaviour
         StartCoroutine(RotatePlayer(transform.rotation, 0.7f));
     }
 
+    /// <summary>
+    /// Rotate the player by 180 degrees
+    /// </summary>
+    /// <param name="startRotation">The rotation of the player at the start of the call</param>
+    /// <param name="duration">The duration that the rotation will take to complete</param>
+    /// <returns></returns>
     IEnumerator RotatePlayer(Quaternion startRotation, float duration)
     {
         Vector3 rot = startRotation.eulerAngles;
@@ -117,6 +134,10 @@ public class Character : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Check whether the player is on a wall (with a raycast) and set the animation accordingly
+    /// </summary>
+    /// <returns>True if the player is on the wall, false otherwise</returns>
     private bool IsOnWall()
     {
         Vector3 sumNormals = new Vector3();
@@ -137,18 +158,27 @@ public class Character : MonoBehaviour
         return false;
     }
     
-
+    /// <summary>
+    /// Stop the player animation
+    /// </summary>
     private void StopMove()
     {
         playerAnimator.SetBool("IsRunning", false);
     }
 
+    /// <summary>
+    /// Move the player and set the running animation
+    /// </summary>
+    /// <param name="move"></param>
     private void Move(Vector3 move)
     {
         transform.forward = move;
         playerAnimator.SetBool("IsRunning", true);
     }
 
+    /// <summary>
+    /// Make the player jump and set the animation accordingly
+    /// </summary>
     private void Jump()
     {
         velocity.y += Mathf.Sqrt(JumpHeight * -2f * Gravity);

@@ -52,6 +52,11 @@ public class Plateform : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Compare the color of the platform and the highlighter color
+    /// </summary>
+    /// <param name="highlighterColor">The color of the highlighter</param>
+    /// <returns>Return whether the platform should illuminate or not</returns>
     private bool CompareColor(Color highlighterColor)
     {
         bool isOk = true;

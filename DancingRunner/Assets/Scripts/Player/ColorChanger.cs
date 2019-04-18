@@ -8,13 +8,15 @@ public class ColorChanger : MonoBehaviour
     private int currentIndex = 0;
 
     SkinnedMeshRenderer skinRenderer;
-    // Start is called before the first frame update
     void Start()
     {
         skinRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         ChangeColor();
     }
 
+    /// <summary>
+    /// Change the player color with the next color in the list
+    /// </summary>
     public void ChangeColor()
     {
         Color color = colors[currentIndex++ % colors.Length];
@@ -22,6 +24,10 @@ public class ColorChanger : MonoBehaviour
         skinRenderer.material.SetColor("_EmissionColor", color * 0.75f);
     }
 
+    /// <summary>
+    /// Get the current color of the player
+    /// </summary>
+    /// <returns></returns>
     public Color GetColor()
     {
         return skinRenderer.material.GetColor("_Color");
