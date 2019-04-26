@@ -101,7 +101,7 @@ MonoBehaviour:
   JumpHeight: 2
   WallJumpPropulsion: 2
   Gravity: -9.81
-  GroundDistance: 0.2
+  GroundDistance: 0.4
   Ground:
     serializedVersion: 2
     m_Bits: 512
@@ -7907,18 +7907,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3637601447129086808}
     m_Modifications:
-    - target: {fileID: 100000, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
-      propertyPath: m_Name
-      value: 12318_Helmet_v1_L3
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.026
@@ -7974,6 +7962,18 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.014100217
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
+      propertyPath: m_Name
+      value: 12318_Helmet_v1_L3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 022f7bac93d60b442be43b8ba7835ebe, type: 3}
       propertyPath: m_Materials.Array.data[0]

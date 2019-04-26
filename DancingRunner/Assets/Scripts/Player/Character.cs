@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     public float JumpHeight = 2f;
     public float WallJumpPropulsion = 2f;
     public float Gravity = -9.81f;
-    public float GroundDistance = 0.2f;
+    public float GroundDistance = 0.4f;
     public LayerMask Ground;
     public Vector3 Drag;
 
@@ -40,7 +40,7 @@ public class Character : MonoBehaviour
         if (Input.GetButtonDown("ChangeColorP" + PlayerId))
             colorChanger.ChangeColor();
         
-        isGrounded = controller.isGrounded;
+        isGrounded = IsGrounded();
 
         // Movement
         if (isGrounded && velocity.y < 0)
@@ -183,5 +183,20 @@ public class Character : MonoBehaviour
     {
         velocity.y += Mathf.Sqrt(JumpHeight * -2f * Gravity);
         playerAnimator.SetBool("IsJumping", true);
+    }
+
+    private bool IsGrounded()
+    {
+        if (controller.isGrounded)
+            return true;
+
+        Vector3 bottom = controller.transform.position - new Vector3(0, controller.height / 2, 0);
+
+        if (Physics.Raycast(bottom, -Vector3.up, out RaycastHit hit, GroundDistance) && !playerAnimator.GetBool("IsJumping"))
+        {
+            controller.Move(-Vector3.up * hit.distance);
+            return true;
+        }
+        return false;
     }
 }
