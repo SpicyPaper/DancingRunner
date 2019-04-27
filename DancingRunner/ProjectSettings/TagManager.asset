@@ -11,6 +11,7 @@ TagManager:
   - PlateformHighlighter
   - Stage
   - Ghosty
+  - End
   layers:
   - Default
   - TransparentFX

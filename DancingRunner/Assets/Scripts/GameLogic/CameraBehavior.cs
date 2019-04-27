@@ -10,7 +10,7 @@ public class CameraBehavior
     private Transform player2;
     private readonly float smoothTime;
     
-    private List<GameObject> stages;
+    private List<GameObject> milestones;
     private Vector3 velocity;
     private Vector3 initCamera;
     private int maxId;
@@ -23,12 +23,16 @@ public class CameraBehavior
         this.player2 = player2;
         this.smoothTime = smoothTime;
 
-        stages = new List<GameObject>();
+        milestones = new List<GameObject>();
         foreach (Transform child in level.transform)
         {
-            if (child.name.Contains("Stage"))
+            if (child.tag == "Stage")
             {
-                stages.Add(child.gameObject);
+                milestones.Add(child.gameObject.transform.Find("Start").gameObject);
+            }
+            if (child.tag == "End")
+            {
+                milestones.Add(child.gameObject);
             }
         }
         initCamera = new Vector3(camera.position.x, camera.position.y, camera.position.z);
@@ -40,7 +44,7 @@ public class CameraBehavior
         int cameraIndex = GetCameraIndex();
         if (cameraIndex != -1)
         {
-            PlaceCamera(stages[cameraIndex].transform.Find("Start"), stages[cameraIndex + 1].transform.Find("Start"));
+            PlaceCamera(milestones[cameraIndex].transform, milestones[cameraIndex + 1].transform);
         }
     }
 
@@ -69,33 +73,33 @@ public class CameraBehavior
         int index1 = 0;
         int index2 = 0;
 
-        for (int i = 0; i < stages.Count - 1; i++)
+        for (int i = 0; i < milestones.Count - 1; i++)
         {
-            if (player1.position.z > StartPlatformZ(stages[i].transform.Find("Start")) && player1.position.z < StartPlatformZ(stages[i + 1].transform.Find("Start")))
+            if (player1.position.z > StartPlatformZ(milestones[i].transform) && player1.position.z < StartPlatformZ(milestones[i + 1].transform))
             {
                 index1 = i;
             }
-            if (player2.position.z > StartPlatformZ(stages[i].transform.Find("Start")) && player2.position.z < StartPlatformZ(stages[i + 1].transform.Find("Start")))
+            if (player2.position.z > StartPlatformZ(milestones[i].transform) && player2.position.z < StartPlatformZ(milestones[i + 1].transform))
             {
                 index2 = i;
             }
         }
 
-        if (player1.position.z <= StartPlatformZ(stages[0].transform.Find("Start")))
+        if (player1.position.z <= StartPlatformZ(milestones[0].transform))
         {
             index1 = 0;
         }
-        if (player2.position.z <= StartPlatformZ(stages[0].transform.Find("Start")))
+        if (player2.position.z <= StartPlatformZ(milestones[0].transform))
         {
             index2 = 0;
         }
-        if (player1.position.z >= StartPlatformZ(stages[stages.Count - 2].transform.Find("Start")))
+        if (player1.position.z >= StartPlatformZ(milestones[milestones.Count - 2].transform))
         {
-            index1 = stages.Count - 2;
+            index1 = milestones.Count - 2;
         }
-        if (player2.position.z >= StartPlatformZ(stages[stages.Count - 2].transform.Find("Start")))
+        if (player2.position.z >= StartPlatformZ(milestones[milestones.Count - 2].transform))
         {
-            index2 = stages.Count - 2;
+            index2 = milestones.Count - 2;
         }
 
         int index = Mathf.Min(index1, index2);

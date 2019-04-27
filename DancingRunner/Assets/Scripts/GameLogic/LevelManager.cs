@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class LevelManager : MonoBehaviour
     public new Transform camera;
     public float LavaHeight;
     public bool UsedOnMenu;
+    public string NextLevelName;
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
@@ -27,6 +29,7 @@ public class LevelManager : MonoBehaviour
     private GameObject charactersParent;
     private CameraBehavior cameraBehavior;
     private Dictionary<int, List<GameObject>> ghosties;
+    private GameObject endLevel;
 
     private const float SPEED_FACTOR = 100;
 
@@ -86,6 +89,7 @@ public class LevelManager : MonoBehaviour
             UpdateExistingHighlighters();
             RespawnFallingPlayers();
             MoveGhosties();
+            CheckForEnd();
 
             cameraBehavior.UpdateCamera();
             int stageId = cameraBehavior.GetCameraIndex();
@@ -298,6 +302,30 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Check if both player are at the end and load new level
+    /// </summary>
+    private void CheckForEnd()
+    {
+        float endBorder = endLevel.transform.position.z - endLevel.transform.localScale.z / 2;
+
+        if (NextLevelName != "")
+        {
+            if (Players[0].transform.position.z > endBorder && Players[1].transform.position.z > endBorder)
+            {
+                SceneManager.LoadScene(NextLevelName);
+            }
+        } 
+        else
+        {
+            Debug.Log("Warning: no next level predifined, will return to the level selection menu");
+            if (Players[0].transform.position.z > endBorder && Players[1].transform.position.z > endBorder)
+            {
+                SceneManager.LoadScene("SelectLevel");
+            }
+        }
+    }
+
+    /// <summary>
     /// Create the level structure
     /// </summary>
     private void CreateLevelStructure()
@@ -305,6 +333,7 @@ public class LevelManager : MonoBehaviour
         GameObject startPlateform = null;
         List<GameObject> stagePlateforms = new List<GameObject>();
         List<GameObject> ghostiesPerStage;
+        GameObject end = null;
 
         int stageId = 0;
         foreach (Transform levelChild in level.transform)
@@ -328,7 +357,7 @@ public class LevelManager : MonoBehaviour
                         ghostiesPerStage.Add(stageChild.gameObject);
                     }
                 }
-                
+
                 if (startPlateform != null && stagePlateforms.Count > 0)
                 {
                     List<GameObject> tmpStagePlateforms = new List<GameObject>
@@ -342,18 +371,31 @@ public class LevelManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Error during level creation! All stage should have a starting plateform and a number of plateforms > 0.");
+                    Debug.Log("Error during level creation! All stages should have a starting plateform and a number of plateforms > 0.");
                 }
 
                 startPlateform = null;
                 stagePlateforms.Clear();
                 stageId++;
             }
+            else if (levelChild.tag == "End")
+            {
+                end = levelChild.gameObject;
+            }
         }
 
         if (plateformsPerStage.Count <= 0)
         {
-            Debug.Log("Error during level creation! All level should have a number of stage > 0.");
+            Debug.Log("Error during level creation! All levels should have a number of stage > 0.");
+        }
+
+        if (end != null)
+        {
+            endLevel = end;
+        } 
+        else
+        {
+            Debug.Log("Error during level creation! All levels should contains an end.");
         }
     }
 
