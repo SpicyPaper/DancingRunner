@@ -2814,7 +2814,7 @@ MonoBehaviour:
   camera: {fileID: 1150661005}
   LavaHeight: -5
   UsedOnMenu: 0
-  NextLevelName: 
+  NextLevelName: Level2
 --- !u!4 &1683689844
 Transform:
   m_ObjectHideFlags: 0
