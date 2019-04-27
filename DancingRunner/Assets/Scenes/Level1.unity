@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -163,13 +163,14 @@ MonoBehaviour:
     type: 3}
   PlayerModel: {fileID: 3637601446775341297, guid: d0e9f002c0c768644b4db91f6081bee2,
     type: 3}
-  HighlighterInterval: 1.5
+  HighlighterInterval: 1.3636
   MusicDelay: 1.6
   PlayedMusic: {fileID: 8300000, guid: b20b5208a7d9d984a87b0f88f0883662, type: 3}
   MainAudioSource: {fileID: 405583525}
   AudiowaveParticleSystem: {fileID: 259564469}
   camera: {fileID: 949261442}
   LavaHeight: -5
+  UsedOnMain: 0
 --- !u!4 &321163649
 Transform:
   m_ObjectHideFlags: 0

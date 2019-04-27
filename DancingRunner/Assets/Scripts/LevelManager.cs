@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     public ParticleSystem AudiowaveParticleSystem;
     public new Transform camera;
     public float LavaHeight;
+    public bool UsedOnMain;
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
@@ -35,26 +36,29 @@ public class LevelManager : MonoBehaviour
     /// Initialize level and audio
     /// </summary>
     private void Start()
-    {
-        PlateformFadingTime = HighlighterInterval + HighlighterInterval * 0.1f;
+    {        
+        if(!UsedOnMain)
+        {
+            PlateformFadingTime = HighlighterInterval + HighlighterInterval * 0.1f;
+
+            Players = new List<GameObject>();
+            plateformsPerStage = new List<List<GameObject>>();
+            highlighters = new List<GameObject>();
+            level = GetComponent<Transform>().gameObject;
+            CurrentStageId = 0;
+            highlightersParent = new GameObject("Highlighters");
+            charactersParent = new GameObject("Characters");
+            ghosties = new Dictionary<int, List<GameObject>>();
+
+            CreateLevelStructure();
+            CreatePlayers(2);
+            ReplaceParticleSystem();
+
+            cameraBehavior = new CameraBehavior(Camera.main.transform, level, Players[0].transform, Players[1].transform, 0.3f);
+        }
 
         var audiowaveEmission = AudiowaveParticleSystem.emission;
         audiowaveEmission.rateOverTime = 1f / HighlighterInterval;
-
-        Players = new List<GameObject>();
-        plateformsPerStage = new List<List<GameObject>>();
-        highlighters = new List<GameObject>();
-        level = GetComponent<Transform>().gameObject;
-        CurrentStageId = 0;
-        highlightersParent = new GameObject("Highlighters");
-        charactersParent = new GameObject("Characters");
-        ghosties = new Dictionary<int, List<GameObject>>();
-
-        CreateLevelStructure();
-        CreatePlayers(2);
-        ReplaceParticleSystem();
-
-        cameraBehavior = new CameraBehavior(Camera.main.transform, level, Players[0].transform, Players[1].transform, 0.3f);
 
         MainAudioSource.clip = PlayedMusic;
         MainAudioSource.PlayDelayed(MusicDelay);
@@ -67,20 +71,23 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        AudioManager();
-        UpdateFusionnedColor();
-        HighlighterGenerator();
-        UpdateExistingHighlighters();
-        RespawnFallingPlayers();
-        MoveGhosties();
-
-        cameraBehavior.UpdateCamera();
-        int stageId = cameraBehavior.GetCameraIndex();
-        if (stageId >= 0)
+        if(!UsedOnMain)
         {
-            CurrentStageId = cameraBehavior.GetCameraIndex();
+            AudioManager();
+            UpdateFusionnedColor();
+            HighlighterGenerator();
+            UpdateExistingHighlighters();
+            RespawnFallingPlayers();
+            MoveGhosties();
+
+            cameraBehavior.UpdateCamera();
+            int stageId = cameraBehavior.GetCameraIndex();
+            if (stageId >= 0)
+            {
+                CurrentStageId = cameraBehavior.GetCameraIndex();
+            }
+            ReplaceParticleSystem();
         }
-        ReplaceParticleSystem();
     }
 
     /// <summary>
