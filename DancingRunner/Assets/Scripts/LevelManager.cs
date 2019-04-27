@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -19,7 +17,7 @@ public class LevelManager : MonoBehaviour
     public ParticleSystem AudiowaveParticleSystem;
     public new Transform camera;
     public float LavaHeight;
-    public bool UsedOnMain;
+    public bool UsedOnMenu;
 
     private List<List<GameObject>> plateformsPerStage;
     private List<GameObject> highlighters;
@@ -37,7 +35,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void Start()
     {        
-        if(!UsedOnMain)
+        if(!UsedOnMenu)
         {
             PlateformFadingTime = HighlighterInterval + HighlighterInterval * 0.1f;
 
@@ -81,7 +79,7 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         Debug.Log(CurrentFusionnedColor);
-        if(!UsedOnMain)
+        if(!UsedOnMenu)
         {
             AudioManager();
             UpdateFusionnedColor();
