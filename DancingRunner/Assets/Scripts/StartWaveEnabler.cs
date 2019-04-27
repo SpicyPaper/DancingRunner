@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StartWaveEnabler : MonoBehaviour
 {
-
     public bool IsPlayerInside;
 
     /// <summary>

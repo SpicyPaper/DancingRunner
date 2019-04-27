@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
+    public int CurrentIndex = 0;
+
     private Color[] colors = { Color.red, Color.green, Color.blue };
-    private int currentIndex = 0;
 
     SkinnedMeshRenderer skinRenderer;
     void Start()
@@ -19,7 +20,7 @@ public class ColorChanger : MonoBehaviour
     /// </summary>
     public void ChangeColor()
     {
-        Color color = colors[currentIndex++ % colors.Length];
+        Color color = colors[CurrentIndex++ % colors.Length];
         skinRenderer.material.SetColor("_Color", color);
         skinRenderer.material.SetColor("_EmissionColor", color * 0.75f);
     }

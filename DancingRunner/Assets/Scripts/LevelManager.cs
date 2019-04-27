@@ -56,6 +56,15 @@ public class LevelManager : MonoBehaviour
 
             cameraBehavior = new CameraBehavior(Camera.main.transform, level, Players[0].transform, Players[1].transform, 0.3f);
         }
+        else
+        {
+            CurrentFusionnedColor = Color.white;
+            GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", CurrentFusionnedColor);
+            GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
+            GameObject.Find("Note").GetComponent<ParticleSystemRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
+            ParticleSystem.MainModule settings = AudiowaveParticleSystem.main;
+            settings.startColor = new ParticleSystem.MinMaxGradient(CurrentFusionnedColor);
+        }
 
         var audiowaveEmission = AudiowaveParticleSystem.emission;
         audiowaveEmission.rateOverTime = 1f / HighlighterInterval;
@@ -71,6 +80,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        Debug.Log(CurrentFusionnedColor);
         if(!UsedOnMain)
         {
             AudioManager();
@@ -158,8 +168,7 @@ public class LevelManager : MonoBehaviour
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", CurrentFusionnedColor);
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
         GameObject.Find("Note").GetComponent<ParticleSystemRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
-
-
+        
         ParticleSystem.MainModule settings = AudiowaveParticleSystem.main;
         settings.startColor = new ParticleSystem.MinMaxGradient(CurrentFusionnedColor);
     }

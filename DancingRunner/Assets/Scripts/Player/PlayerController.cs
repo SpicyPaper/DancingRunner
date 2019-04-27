@@ -50,8 +50,6 @@ public class PlayerController : MonoBehaviour
                 isOnWall = false;
             }
         }
-        
-        
     }
 
     void FixedUpdate()
