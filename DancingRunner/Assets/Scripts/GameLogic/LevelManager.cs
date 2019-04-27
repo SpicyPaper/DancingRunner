@@ -78,7 +78,6 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        Debug.Log(CurrentFusionnedColor);
         if(!UsedOnMenu)
         {
             AudioManager();
