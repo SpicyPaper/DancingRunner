@@ -185,6 +185,10 @@ public class Character : MonoBehaviour
         playerAnimator.SetBool("IsJumping", true);
     }
 
+    /// <summary>
+    /// Check whether the player is grounded or not. If the player is within a certain distance of the ground, move him on it.
+    /// </summary>
+    /// <returns>True if the player is on the ground, false otherwise</returns>
     private bool IsGrounded()
     {
         if (controller.isGrounded)
