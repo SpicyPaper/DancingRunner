@@ -16,7 +16,6 @@ public class LevelManager : MonoBehaviour
     public AudioClip PlayedMusic;
     public AudioSource MainAudioSource;
     public ParticleSystem AudiowaveParticleSystem;
-    public new Transform camera;
     public float LavaHeight;
     public bool UsedOnMenu;
     public string NextLevelName;
