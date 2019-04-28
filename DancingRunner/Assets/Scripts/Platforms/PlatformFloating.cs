@@ -4,6 +4,7 @@ public class PlatformFloating : MonoBehaviour
 {
     public float speed;
     public float height;
+    public float shift;
 
     private Vector3 initPos;
     
@@ -16,6 +17,6 @@ public class PlatformFloating : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = initPos + new Vector3(0f, height * Mathf.Sin(Time.time * speed), 0f);
+        transform.position = initPos + new Vector3(0f, height * Mathf.Sin(Time.time * speed + shift), 0f);
     }
 }
