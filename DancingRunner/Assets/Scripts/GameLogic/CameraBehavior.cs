@@ -52,7 +52,7 @@ public class CameraBehavior
     {
         float gapPos = (right.position.z + left.position.z) / 2f;
         float gap = right.position.z - left.position.z;
-        float distance = (gap - 16f) / 4f;
+        float distance = (gap - 16f) / 2f;
         float height = distance * Mathf.Tan(Mathf.PI/6);
 
         camera.position = Vector3.SmoothDamp(camera.position,
