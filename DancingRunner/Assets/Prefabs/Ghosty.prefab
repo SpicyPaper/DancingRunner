@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6583612143723802556}
   m_Layer: 9
   m_Name: Ghosty
-  m_TagString: Untagged
+  m_TagString: Ghosty
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a02eb5e00fd441439aeedaf3494513a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
+  speed: 5
+  color: {r: 0, g: 0, b: 1, a: 1}
   horizontalFloatingSpeed: 0
   verticalFloatingSpeed: 6
   horizontalFloatingAmplitude: 0
@@ -197,33 +197,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4954223465734462715, guid: f60a90fca54636c42a54588eec06b79e,
         type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954223465734462715, guid: f60a90fca54636c42a54588eec06b79e,
-        type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954223465734462715, guid: f60a90fca54636c42a54588eec06b79e,
-        type: 3}
-      propertyPath: ShapeModule.angle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954223465734462715, guid: f60a90fca54636c42a54588eec06b79e,
-        type: 3}
-      propertyPath: ShapeModule.arc.value
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954223465734462715, guid: f60a90fca54636c42a54588eec06b79e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954223465633182938, guid: f60a90fca54636c42a54588eec06b79e,
-        type: 3}
-      propertyPath: m_NormalDirection
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f60a90fca54636c42a54588eec06b79e, type: 3}

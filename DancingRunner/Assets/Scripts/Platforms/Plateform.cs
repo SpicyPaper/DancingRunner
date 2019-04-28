@@ -6,6 +6,7 @@ using UnityEngine;
 public class Plateform : MonoBehaviour
 {
     public Color PlateformColor;
+    public bool AlwaysOn = false;
 
     private new Renderer renderer;
     private new Collider collider;
@@ -59,15 +60,16 @@ public class Plateform : MonoBehaviour
     /// <returns>Return whether the platform should illuminate or not</returns>
     private bool CompareColor(Color highlighterColor)
     {
-        bool isOk = true;
+        if (AlwaysOn)
+            return true;
         if (PlateformColor.r > 0 && highlighterColor.r <= 0)
-            isOk = false;
+            return false;
         if (PlateformColor.g > 0 && highlighterColor.g <= 0)
-            isOk = false;
+            return false;
         if (PlateformColor.b > 0 && highlighterColor.b <= 0)
-            isOk = false;
+            return false;
 
-        return isOk;
+        return true;
     }
 
     /// <summary>
@@ -109,7 +111,8 @@ public class Plateform : MonoBehaviour
             playerColor = new Color(playerColor.r, playerColor.g, playerColor.b);
 
             if (plateformColor != LevelManager.CurrentFusionnedColor &&
-                plateformColor != playerColor)
+                plateformColor != playerColor &&
+                plateformColor != Color.white)
             {
                 Physics.IgnoreCollision(player.GetComponent<CharacterController>(), collider);
             }
@@ -142,4 +145,5 @@ public class Plateform : MonoBehaviour
             }
         }
     }
+
 }
