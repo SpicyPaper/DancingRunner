@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -232,7 +232,6 @@ MonoBehaviour:
   PlayedMusic: {fileID: 8300000, guid: b20b5208a7d9d984a87b0f88f0883662, type: 3}
   MainAudioSource: {fileID: 405583525}
   AudiowaveParticleSystem: {fileID: 259564469}
-  camera: {fileID: 949261442}
   LavaHeight: -5
   UsedOnMenu: 0
   NextLevelName: Level1
@@ -426,7 +425,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 995, y: 383}
+  m_AnchoredPosition: {x: 800, y: 400}
   m_SizeDelta: {x: 109.6, y: 109.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &407108974
@@ -717,12 +716,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2942811572579396313, guid: 1be7f657c02625740b994df48d06d950,
     type: 3}
   m_PrefabInstance: {fileID: 1392068731}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &949261442 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5174388964235858685, guid: 6ec7e5e825741974b8ad2102e35ea84a,
-    type: 3}
-  m_PrefabInstance: {fileID: 5174388964897736319}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1138924645
 GameObject:

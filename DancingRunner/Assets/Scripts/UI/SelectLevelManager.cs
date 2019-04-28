@@ -8,19 +8,19 @@ public class SelectLevelManager : MonoBehaviour
 {
     public GameObject LevelModel;
     public uint levelNumber;
+    public int numberOfLevelPerLine = 5;
+    public int NumberOfLine = 3;
 
     private const int START_POS_X = -750;
     private const int START_POS_Y = 125;
     private const int END_POS_Y = -100;
-    private const int NUMBER_OF_LEVEL_PER_LINE = 5;
-    private const int NUMBER_OF_LINE = 3;
     private const int BUTTON_SIZE = 100;
 
     // Start is called before the first frame update
     void Start()
     {
-        int spaceX = (-START_POS_X * 2 - BUTTON_SIZE * (NUMBER_OF_LEVEL_PER_LINE - 1)) / (NUMBER_OF_LEVEL_PER_LINE - 1);
-        int spaceY = ((START_POS_Y - END_POS_Y) - BUTTON_SIZE * (NUMBER_OF_LINE - 1)) / (NUMBER_OF_LINE - 1);
+        int spaceX = (-START_POS_X * 2 - BUTTON_SIZE * (numberOfLevelPerLine - 1)) / (numberOfLevelPerLine - 1);
+        int spaceY = ((START_POS_Y - END_POS_Y) - BUTTON_SIZE * (NumberOfLine - 1)) / (NumberOfLine - 1);
         Debug.Log(spaceY);
         float currentPosX = START_POS_X;
         float currentPosY = START_POS_Y;
@@ -28,7 +28,7 @@ public class SelectLevelManager : MonoBehaviour
 
         for (int i = 0; i < levelNumber; i++)
         {
-            if (currentNumberOfLevel < NUMBER_OF_LEVEL_PER_LINE * NUMBER_OF_LINE)
+            if (currentNumberOfLevel < numberOfLevelPerLine * NumberOfLine)
             {
                 GameObject levelSelector = Instantiate(LevelModel);
                 RectTransform rectLevelSelector = (RectTransform)levelSelector.transform;
@@ -45,7 +45,7 @@ public class SelectLevelManager : MonoBehaviour
                 currentPosX += BUTTON_SIZE + spaceX;
                 currentNumberOfLevel++;
 
-                if (currentNumberOfLevel % NUMBER_OF_LEVEL_PER_LINE == 0)
+                if (currentNumberOfLevel % numberOfLevelPerLine == 0)
                 {
                     currentPosX = START_POS_X;
                     currentPosY -= BUTTON_SIZE + spaceY;
