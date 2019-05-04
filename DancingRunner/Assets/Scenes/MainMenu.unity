@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -479,7 +479,7 @@ RectTransform:
   m_Children:
   - {fileID: 546665943}
   m_Father: {fileID: 960895098}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 574705898}
   - component: {fileID: 574705897}
   m_Layer: 5
-  m_Name: btnSelectLevel (1)
+  m_Name: btnHowToPlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -841,7 +841,7 @@ RectTransform:
   m_Children:
   - {fileID: 1673609241}
   m_Father: {fileID: 960895098}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1074,7 +1074,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Credis
+  m_Text: Credits
 --- !u!222 &844328734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1363,10 +1363,10 @@ RectTransform:
   m_Children:
   - {fileID: 240581803}
   - {fileID: 1793933082}
-  - {fileID: 360055180}
   - {fileID: 1923959933}
   - {fileID: 574705896}
   - {fileID: 1227810565}
+  - {fileID: 360055180}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1497,7 +1497,7 @@ GameObject:
   - component: {fileID: 1227810567}
   - component: {fileID: 1227810566}
   m_Layer: 5
-  m_Name: btnSelectLevel (2)
+  m_Name: btnCredits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1516,7 +1516,7 @@ RectTransform:
   m_Children:
   - {fileID: 844328732}
   m_Father: {fileID: 960895098}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2015,7 +2015,7 @@ RectTransform:
   m_Children:
   - {fileID: 1903355138}
   m_Father: {fileID: 960895098}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

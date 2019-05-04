@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -920,7 +920,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Developped during the .NET course given at La Haute Ecole ARC
+  m_Text: "Developped during the .NET course given at the school\n Haute Ecole ARC"
 --- !u!222 &801330424
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -999,7 +999,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Olivier Husser
+  m_Text: "Olivier H\xFCsser"
 --- !u!222 &830494626
 CanvasRenderer:
   m_ObjectHideFlags: 0
