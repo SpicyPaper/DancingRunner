@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Scale a platform on itself
+/// </summary>
 public class PlatformScaling : MonoBehaviour
 {
     public float speed;

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Ennemy following the players if the activation color corresponds to the ennemy color
+/// </summary>
 public class Ghosty : MonoBehaviour
 {
     public float speed;
@@ -26,12 +26,13 @@ public class Ghosty : MonoBehaviour
         initPos = transform.position;
         floatingShift = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
     }
-
+    
     public float GetFloatingShift()
     {
         return floatingShift;
     }
 
+    // Resest the Ghosty position
     public void Respawn()
     {
         transform.position = initPos;

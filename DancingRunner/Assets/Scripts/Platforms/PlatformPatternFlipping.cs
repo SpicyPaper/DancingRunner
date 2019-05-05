@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Flip a platform along differents axis by 90 degrees, selectable pattern in the UI
+/// </summary>
 public class PlatformPatternFlipping : MonoBehaviour
 {
     public float pauseDuration;

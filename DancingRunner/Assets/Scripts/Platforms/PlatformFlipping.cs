@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Flip a platform by 90 degrees
+/// </summary>
 public class PlatformFlipping : MonoBehaviour
 {
     public float pauseDuration;

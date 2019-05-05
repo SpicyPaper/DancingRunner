@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Rotate a platform on itself
+/// </summary>
 public class PlatformRotating : MonoBehaviour
 {
     public float speed;

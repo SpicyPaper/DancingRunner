@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Turn a platform in circle around it's center or only on a single axis
+/// </summary>
 public class PlatformTurning : MonoBehaviour
 {
     public float speed;

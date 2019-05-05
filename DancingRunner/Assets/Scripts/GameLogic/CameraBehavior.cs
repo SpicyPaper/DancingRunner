@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handle the camera logic
+/// </summary>
 public class CameraBehavior
 {
     private Transform camera;
@@ -39,6 +41,9 @@ public class CameraBehavior
         maxId = 0;
     }
     
+    /// <summary>
+    /// Update method of the camera called by the Level Manager
+    /// </summary>
     public void UpdateCamera()
     {
         int cameraIndex = GetCameraIndex();
@@ -48,6 +53,11 @@ public class CameraBehavior
         }
     }
 
+    /// <summary>
+    /// Place the camera between two GameObjects
+    /// </summary>
+    /// <param name="left">Left platform transform</param>
+    /// <param name="right">Right platform transform</param>
     private void PlaceCamera(Transform left, Transform right)
     {
         float gapPos = (right.position.z + left.position.z) / 2f;
@@ -61,6 +71,11 @@ public class CameraBehavior
                                                 smoothTime);
     }
 
+    /// <summary>
+    /// Compute the left most z coordinate of a platform
+    /// </summary>
+    /// <param name="platform">Platform to analyze</param>
+    /// <returns>The left most z coordinate</returns>
     private float StartPlatformZ(Transform platform)
     {
         float zPos = platform.position.z;
@@ -68,11 +83,16 @@ public class CameraBehavior
         return zPos - zShift;
     }
 
+    /// <summary>
+    /// Compute the index of the platforms surounding the camera 
+    /// </summary>
+    /// <returns>The index of the closest platform on the left camera side</returns>
     public int GetCameraIndex()
     {
         int index1 = 0;
         int index2 = 0;
 
+        // Computation
         for (int i = 0; i < milestones.Count - 1; i++)
         {
             if (player1.position.z > StartPlatformZ(milestones[i].transform) && player1.position.z < StartPlatformZ(milestones[i + 1].transform))
@@ -85,6 +105,7 @@ public class CameraBehavior
             }
         }
 
+        // Corner cases
         if (player1.position.z <= StartPlatformZ(milestones[0].transform))
         {
             index1 = 0;
@@ -102,8 +123,10 @@ public class CameraBehavior
             index2 = milestones.Count - 2;
         }
 
+        // Takes the min of both players
         int index = Mathf.Min(index1, index2);
 
+        // Result
         if (index > maxId)
         {
             maxId = index;

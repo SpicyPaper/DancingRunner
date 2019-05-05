@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Make a platform float with a sinus function
+/// </summary>
 public class PlatformFloating : MonoBehaviour
 {
     public float speed;
