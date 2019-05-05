@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manage the color and the collider of a plateform.
+/// </summary>
 public class Plateform : MonoBehaviour
 {
     public Color PlateformColor;
@@ -145,5 +148,4 @@ public class Plateform : MonoBehaviour
             }
         }
     }
-
 }

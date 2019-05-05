@@ -2,6 +2,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manage the level and some important aspect of the game.
+/// Create the level, init the game, spawn highlighters, manage audio and more...
+/// </summary>
 public class LevelManager : MonoBehaviour
 {
     public static List<GameObject> Players;
@@ -242,6 +246,7 @@ public class LevelManager : MonoBehaviour
 
     /// <summary>
     /// Move all Ghosties present in the active stage
+    /// if the current fusionned color correspond to the ghosty.
     /// </summary>
     private void MoveGhosties()
     {

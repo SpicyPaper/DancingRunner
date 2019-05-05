@@ -15,13 +15,14 @@ public class SelectLevelManager : MonoBehaviour
     private const int START_POS_Y = 125;
     private const int END_POS_Y = -100;
     private const int BUTTON_SIZE = 100;
-
-    // Start is called before the first frame update
+    
+    /// <summary>
+    /// Place buttons to load level with the asked starting pos, size and space.
+    /// </summary>
     void Start()
     {
         int spaceX = (-START_POS_X * 2 - BUTTON_SIZE * (numberOfLevelPerLine - 1)) / (numberOfLevelPerLine - 1);
         int spaceY = ((START_POS_Y - END_POS_Y) - BUTTON_SIZE * (NumberOfLine - 1)) / (NumberOfLine - 1);
-        Debug.Log(spaceY);
         float currentPosX = START_POS_X;
         float currentPosY = START_POS_Y;
         int currentNumberOfLevel = 0;
@@ -63,11 +64,5 @@ public class SelectLevelManager : MonoBehaviour
     {
         Debug.Log(levelID);
         SceneManager.LoadScene("Level" + levelID);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

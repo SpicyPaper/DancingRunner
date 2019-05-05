@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Provide some usefull method to load scene or qui the app.
+/// The methods can be linked on a button.
+/// </summary>
 public class MainMenu : MonoBehaviour
 {
     public void LoadLevel1()
