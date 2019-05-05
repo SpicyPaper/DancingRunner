@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
 
     void Start()
     {
+        // Load component once
         controller = GetComponent<CharacterController>();
         playerAnimator = GetComponentInChildren<Animator>();
         colorChanger = GetComponent<ColorChanger>();

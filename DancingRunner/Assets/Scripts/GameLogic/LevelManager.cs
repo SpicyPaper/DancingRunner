@@ -134,6 +134,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void UpdateFusionnedColor()
     {
+        // When players are on the "button" to show all platforms, change the wave to white
         if (plateformsPerStage[CurrentStageId][0].GetComponent<PlayerOnActivatorDetector>().MustShowAllPlatforms())
         {
             CurrentFusionnedColor = Color.white;
@@ -161,10 +162,11 @@ public class LevelManager : MonoBehaviour
             {
                 fusionnedColor.z = 1;
             }
-
+            // Fusion the players color
             CurrentFusionnedColor = new Color(fusionnedColor.x, fusionnedColor.y, fusionnedColor.z);
         }
 
+        // Change the helmet and the note particle color
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", CurrentFusionnedColor);
         GameObject.Find("Helmet").GetComponent<MeshRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);
         GameObject.Find("Note").GetComponent<ParticleSystemRenderer>().sharedMaterial.SetColor("_Color", CurrentFusionnedColor);

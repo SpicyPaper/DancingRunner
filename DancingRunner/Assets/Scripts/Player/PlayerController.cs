@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is a test for the player controller with a rigidbody.
+/// See the Character class that user a character controller instead.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     public float Speed = 7f;
@@ -23,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        // Load components once instead of doing it in the update loop
         body = GetComponent<Rigidbody>();
         playerAnimator = GetComponentInChildren<Animator>();
     }
