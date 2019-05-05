@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script attached to the game object on the start to check 
+/// whether the player is inside
+/// </summary>
 public class StartWaveEnabler : MonoBehaviour
 {
     public bool IsPlayerInside;

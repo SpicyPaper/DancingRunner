@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script attached to a player used to change its color
+/// </summary>
 public class ColorChanger : MonoBehaviour
 {
     public int CurrentIndex = 0;
@@ -9,6 +12,10 @@ public class ColorChanger : MonoBehaviour
     private Color[] colors = { Color.red, Color.green, Color.blue };
 
     SkinnedMeshRenderer skinRenderer;
+
+    /// <summary>
+    /// Start
+    /// </summary>
     void Start()
     {
         skinRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
