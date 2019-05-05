@@ -31,8 +31,10 @@ public class Ghosty : MonoBehaviour
     {
         return floatingShift;
     }
-
-    // Resest the Ghosty position
+    
+    /// <summary>
+    /// Reset the Ghosty position
+    /// </summary>
     public void Respawn()
     {
         transform.position = initPos;

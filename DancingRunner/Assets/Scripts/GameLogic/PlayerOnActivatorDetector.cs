@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerOnActivatorDetector : MonoBehaviour
 {
     private StartWaveEnabler[] startWaveEnablers;
+
     /// <summary>
     /// Start
     /// </summary>

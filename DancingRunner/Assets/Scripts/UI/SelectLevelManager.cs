@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Place buttons to load level with the asked starting pos, size and space.
+/// </summary>
 public class SelectLevelManager : MonoBehaviour
 {
     public GameObject LevelModel;
