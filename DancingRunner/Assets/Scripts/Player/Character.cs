@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script attached to a player to move it according to its input
+/// </summary>
 public class Character : MonoBehaviour
 {
     public int PlayerId = 1;
@@ -27,6 +30,9 @@ public class Character : MonoBehaviour
     private bool canControlCharacter = true;
     private Vector3 warpPosition = Vector3.zero;
 
+    /// <summary>
+    /// Start
+    /// </summary>
     void Start()
     {
         // Load component once
@@ -35,6 +41,9 @@ public class Character : MonoBehaviour
         colorChanger = GetComponent<ColorChanger>();
     }
 
+    /// <summary>
+    /// Update
+    /// </summary>
     void Update()
     {
         // Color change
@@ -82,6 +91,9 @@ public class Character : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Called after update in order to teleport the player correctly
+    /// </summary>
     void LateUpdate()
     {
         // Used to teleport correctly the player
